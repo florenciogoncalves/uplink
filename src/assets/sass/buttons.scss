@@ -1,0 +1,99 @@
+@import "colors";
+
+@mixin _button ($border-radius){
+	height: 40px;
+	padding: 0 16px;
+	border-radius: $border-radius;
+	box-sizing: border-box;
+
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 1.5;
+}
+
+@mixin _button-border-and-color($color) {
+	border-color: $color;
+	border: 1px solid;
+	background: none;
+
+
+	color: $color;
+}
+
+/* Button-primary*/
+.button-primary
+{
+	@include _button($small-border);
+
+	border: none;
+	color: $color-neutral-white-pure;
+	background-color: $color-primary-dark;
+}
+
+.button-primary:hover
+{
+	background-color: ($color-primary-medium);
+}
+
+.button-primary:active 
+{
+	background-color: $color-primary-dark;
+}
+
+.button-primary:disabled
+{
+	background-color: $color-neutral-white-dark;
+}
+
+
+/* Button-secondary*/
+.button-secondary
+{
+	@include _button($small-border);
+	@include _button-border-and-color ($color-primary-dark);
+}
+
+.button-secondary:hover
+{
+	@include _button-border-and-color ($color-primary-medium);
+}
+
+.button-secondary:active 
+{
+	border: $color-primary-dark;
+	background-color: $color-primary-dark;
+	color: $color-neutral-white-pure;
+}
+
+.button-secondary:disabled
+{
+	border: $color-neutral-white-dark;
+	color: $color-neutral-white-dark;
+}
+
+.button-text 
+{
+	@include _button($small-border);
+	text-decoration: underline;
+	border: none;
+	background: none;
+	color: $color-primary-dark;
+
+	&:hover
+	{
+		color: $color-primary-medium;
+	}
+
+	&:active
+	{
+		color: $color-primary-dark;
+	}
+
+	&:disabled
+	{
+		color: $color-neutral-white-dark;
+	}
+
+}

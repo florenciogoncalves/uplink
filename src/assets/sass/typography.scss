@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+@mixin _font($size, $weight, $height) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $height;
+}
+
+.h1 
+{
+  @include _font(32px, bold, 110%)
+}
+
+.h2
+{
+  @include _font(24px, bold, 140%)
+}
+
+.h3
+{
+  @include _font(20px, bold, 150%)
+}
+
+.h4 
+{
+  @include _font(20px, 600, 150%)
+}
+
+.h5
+{
+  @include _font(18px, bold, 150%)
+}
+
+.p
+{
+  @include _font(16px, 400, 150%)
+}
+
+.p-2
+{
+  @include _font(16px, 600, 150%)
+}
+
+.small
+{
+  @include _font(14px, 400, 150%)
+}
+
+.small
+{
+  @include _font(14px, 600, 150%)
+}

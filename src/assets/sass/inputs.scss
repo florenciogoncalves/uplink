@@ -1,0 +1,151 @@
+/* Inputs*/
+
+.input-button
+{
+	width: 40px;
+	height: 40px;
+	border: none;
+	border-radius: $small-border;
+	box-shadow: $button-shadow;
+
+	background-size: 75%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: $color-neutral-white-pure;
+}
+
+/*PF*/
+.input-button.button-pf 
+{
+	background-image: url(./../images/Icons/person.svg);
+}
+
+.input-button.button-pf.actived
+{
+	background-image: url(./../images/Icons/person-white.svg);
+}
+
+.input-button.input-button.actived 
+{
+	background-color: $color-primary-dark;
+}
+
+/*PJ*/
+.input-button.button-pj 
+{
+	background-image: url(./../images/Icons/apartment.svg);
+}
+
+.input-button.button-pj.actived
+{
+	background-image: url(./../images/Icons/apartment-white.svg);
+}
+
+.input-button.input-button.actived 
+{
+	background-color: $color-primary-dark;
+}
+
+.empty-button
+{
+	width: 24px;
+	height: 24px;
+	border: none;
+	box-sizing: border-box;
+
+	background: none;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+
+.empty-button.help
+{
+	background-image: url(./../images/Icons/help.svg);
+	margin-right: 25px;
+}
+
+.empty-button.apps
+{
+	background-image: url(./../images/Icons/apps.svg);
+}
+
+.empty-button.search
+{
+	background-image: url(./../images/Icons/Search.svg);
+	margin-right: 25px;
+}
+
+.empty-button.menu
+{
+	background-image: url(./../images/Icons/topic.svg);
+}
+
+
+
+
+.fieldset-search
+{
+	width: 360px;
+	display: grid;
+	grid-template-columns: 1fr max-content;
+	margin-left: 15px;
+	border: 1px solid $color-neutral-white-dark;
+	box-sizing: border-box;
+	border-radius: $small-border;
+	overflow: hidden;
+
+	input
+	{
+		border: none;
+		height: 40px;
+		padding: 10px 15px;
+		box-sizing: border-box;
+		background: $color-neutral-white-medium;
+		outline: none;
+	}
+
+	.search
+	{
+		border-radius: 0;
+		background-image: url(./../images/Icons/search-white.svg);
+		background-color: $color-neutral-white-dark;
+	}
+}
+
+.fieldset-search.actived
+{
+	border-color: $color-neutral-black-pure;
+	box-shadow: $shadow-1;
+	input
+	{
+		color: $color-neutral-black-pure;
+		background: $color-neutral-white-pure;
+	}
+}
+
+.fieldset-search.focus
+{
+	border-color: $color-primary-dark;
+	box-shadow: $shadow-1;
+	.search
+	{
+		background-color: $color-primary-dark;
+	}
+}
+
+
+
+@media only screen and (max-width: 576px) {
+	.interative-area
+	{
+		display: grid !important;
+		grid-template-rows: auto auto;
+		box-sizing: border-box;
+
+		.fieldset-search {
+			max-width: 82vw;
+			margin: 15px 0 0;
+		}
+	}
+}
