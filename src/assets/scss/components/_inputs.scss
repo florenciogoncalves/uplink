@@ -17,7 +17,7 @@
 /*PF*/
 .input-button.button-pf 
 {
-	background-image: url(./../images/Icons/person.svg);
+	@include mix_insert_img($person_icon);
 }
 
 .input-button.button-pf.actived
@@ -46,7 +46,7 @@
 	background-color: $color-primary-dark;
 }
 
-.empty-button
+.empty_button
 {
 	width: 24px;
 	height: 24px;
@@ -59,29 +59,88 @@
 	background-position: center;
 }
 
-.empty-button.help
+.empty_button.help
 {
-	background-image: url(./../images/Icons/help.svg);
+	@include mix_insert_img($help_icon);
 	margin-right: 25px;
 }
 
-.empty-button.apps
+.empty_button.apps
 {
-	background-image: url(./../images/Icons/apps.svg);
+	@include mix_insert_img($apps_icon);
 }
 
-.empty-button.search
+.empty_button.consult
 {
-	background-image: url(./../images/Icons/Search.svg);
+	@include mix_insert_img($search_icon);
+	background-repeat: no-repeat !important;
+	border-radius: 0 !important;
 	margin-right: 25px;
 }
 
-.empty-button.menu
+.empty_button.file
 {
-	background-image: url(./../images/Icons/topic.svg);
+	@include mix_insert_img($topic_icon);
+	margin-right: 25px;
 }
 
+#extra-options {
+	display: none;
+}
 
+#extra-options.if_onresult {
+	align-items: center;
+	display: flex;
+	width: 100%;
+}
+
+.empty_button.find_in_page {
+	@include mix_insert_img($find_in_page_icon);
+	margin-right: 25px;
+}
+
+.empty_button.highlight {
+	@include mix_insert_img($highlight_icon);
+	margin-right: 25px;
+}
+
+.empty_button.file_upload {
+	@include mix_insert_img($file_upload_icon);
+	margin-right: 35px;
+}
+
+.autosave-container {
+	display: inline-flex;
+	align-items: center;
+	height: 100%;
+	gap: 10px;
+	
+	label {
+		font-size: 16px;
+		line-height: 100%;
+		color: $color-neutral-black-medium;
+	}
+
+	input {
+		appearance: none;
+		width: 35px;
+		height: 24px;
+		cursor: pointer;
+
+		background: no-repeat center;
+		@include mix_insert_img($toggle_off_icon);
+		background-size: contain;
+
+		&:checked {
+			@include mix_insert_img($toggle_on_icon);
+		}
+	}
+}
+
+.empty_button.history {
+	@include mix_insert_img($history_icon);
+	margin-left: auto;
+}
 
 
 .fieldset-search

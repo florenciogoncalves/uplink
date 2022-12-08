@@ -1,0 +1,191 @@
+#modal
+{
+
+	& > div {
+		border-radius: $small-border;
+		position: relative;
+		display: none;
+		width: 600px;
+		padding: 8px 24px;
+		box-sizing: border-box;
+
+		background: $color-neutral-white-pure;
+
+		&:not(.modal-simple) {
+			width: 800px;
+		}
+
+		.fox-head-logo
+		{
+			width: 60px;
+			height: 60px;
+			display: block;
+			margin: auto;
+			background: url(./../images/fox-cabeca.svg) no-repeat center;
+			background-size: contain
+		}
+
+		&:not(.modal-simple) .fox-head-logo {
+			display: none !important;
+		}
+
+		.close-modal
+		{
+			position: absolute;
+			width: 13px;
+			height: 13px;
+			top: 13px;
+			right: 13px;
+			border: none;
+			cursor: pointer;
+			
+			background: url(./../images/Icons/close.svg) no-repeat center;
+
+		}
+
+		.h4
+		{
+			color: $color-primary-dark;
+			text-align: center;
+		}
+
+		&:not(.modal-simple) h4 {
+			width: 100%;
+		}
+
+		.p-2
+		{
+			text-align: center;
+		}
+
+		.buttons-container
+		{
+			margin: 18px auto;
+			display: grid;
+			grid-template-columns: auto auto;
+			column-gap: 10px;
+			width: max-content;
+		}
+
+		/* For subdivision on modals*/
+		.modal_division {
+			
+			& > * {
+				padding: 0 16px;
+			}
+
+			& > .modal_division_subtitle {
+				padding: 0 8px;
+			}
+
+			&:not(:last-of-type) {
+				margin-bottom: 24px;
+			}
+
+			.modal_division_subtitle {
+				@extend .p-2;
+
+				padding-bottom: 8px;
+
+				color: $color-primary-pure;
+				font-weight: 700;
+				text-align: start;
+			}
+
+			li {
+				padding: 16px 0;
+				border-bottom: 2px solid $border-text-color;
+
+				&:first-of-type {
+					padding-top: 0;
+				}
+			}
+		}
+	}
+
+
+	/* More complex modals */
+	.onModal.modal-content {
+		display: grid !important;
+		grid-template-rows: max-content 1fr;
+		max-height: 480px;
+		box-sizing: border-box;
+		overflow: hidden;
+		padding-left: 0;
+		padding-right: 0;
+		padding-top: 0;
+
+		h4 {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		& #modal_header {
+			box-sizing: border-box;
+			position: sticky;
+			top: 0;
+			height: 40px;
+			width: 100%;
+			align-items: center;
+			box-shadow: $modal-header-shadow;
+
+			background: $color-neutral-white-pure;
+		}
+
+		.modal_subtitle {
+			@extend .p-2;
+			text-align: start;
+			color: $font-color-medium;
+		}
+
+		.modal_text {
+			@extend .p;
+
+			color: $font-color-medium;
+		}
+
+
+		& > * {
+			padding: 0 24px;
+		}
+
+		#_modal_container {
+			box-sizing: border-box;
+			max-width: 100%;
+			max-height: 100%;
+			display: flex;
+			flex-direction: column;
+			padding-top: 24px;
+			overflow-y: scroll;
+		}
+
+		.txt-center {
+			text-align: center;
+			margin-bottom: 24px;
+		}
+	}
+
+  position: absolute;
+	width: 100%;
+	height: 100%;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	z-index: 10;
+
+	background: rgba(0, 0, 0, 0.5);
+}
+
+/*
+.modal-simple
+{
+
+
+}
+
+.modal-header
+{
+
+}*/

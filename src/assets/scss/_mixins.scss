@@ -1,0 +1,96 @@
+// Insert imagem as background
+@mixin mix_insert_img($image, $bg: true) {
+	$path: "./../images/Icons/";
+
+	@if ($bg) {
+		background-image: url(#{$path}#{$image}.svg);
+  }
+	@else {
+		content: url(#{$path}#{$image}.svg);
+	}
+}
+
+
+// Dropdown list
+@mixin mix_dropdown($side)
+{
+	position: absolute;
+	top: calc(100% + 4px);
+	display: block;
+	@if $side == left {
+		left: 0;
+	}
+	@else if $side == right {
+		right: 0;
+	}
+	
+	box-shadow: $shadow-2;
+	overflow: hidden;
+
+	border-radius: $small-border;
+
+	background: $color-superlight;
+
+	button {
+		width: 200px;
+		display: flex;
+		border: none;
+		padding: 11px 8px 11px 16px;
+		box-sizing: border-box;
+
+		text-align: start;
+		text-decoration: none;
+		font-weight: 600;
+		font-size: 16px;
+		line-height: 22px;
+		color: $color-neutral-black-medium;
+
+		background: none;
+
+		&:disabled {
+			color: $color-neutral-black-light;
+		}
+
+		&:hover {
+			background: $color-primary-medium;
+			color: $color-neutral-white-pure;
+		}
+
+		a {
+			text-decoration: none;
+			width: 100%;
+			height: 100%;
+
+			text-align: start;
+			font-weight: 600;
+			font-size: 16px;
+			line-height: 22px;
+			color: $color-neutral-black-medium;
+		}
+	}
+
+}
+
+
+// Buttons
+@mixin mix_button ($border-radius){
+	height: 40px;
+	padding: 0 16px;
+	border-radius: $border-radius;
+	box-sizing: border-box;
+
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 1.5;
+}
+
+@mixin mix_btn_border_and_color($color) {
+	border-color: $color;
+	border: 1px solid;
+	background: none;
+
+
+	color: $color;
+}

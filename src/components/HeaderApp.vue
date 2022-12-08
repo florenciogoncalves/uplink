@@ -1,87 +1,68 @@
 <template>
 	<div id="header">
 		<div id="header_top_row">
-			<img class="header_logo" src="./../../public/logo.svg" alt="">
+			<img class="header_logo" src="./../../public/logo.svg" alt="" />
 			<div id="header__buttons">
-				<button class="empty-button help"></button>
-				<button class="empty-button apps"></button>
+				<DropdownArea btnClass="help" btnTitle="Ajuda">
+					<DropItem>Tutorial (em breve)</DropItem>
+					<DropItem @click="showModal('#modal-fonts')">Fontes</DropItem>
+					<DropItem>FAQ (em breve)</DropItem>
+				</DropdownArea>
+
+				<button title="Voltar ao upMiner" class="empty_button apps"></button>
 			</div>
 		</div>
+
 		<div id="header_bottom_row">
 			<div id="header__buttons">
-				<button class="empty-button search"></button>
-				<button class="empty-button menu"></button>
+				<DropdownArea btnClass="consult" btnTitle="Consulta">
+					<DropItem>
+						<a href="./HomePage" target="_blank">Nova consulta</a>
+					</DropItem>
+					<DropItem :isBtnDisabled="true">Adicionar</DropItem>
+				</DropdownArea>
+
+				<DropdownArea btnClass="file" btnTitle="Arquivo">
+					<DropItem>Salvar</DropItem>
+					<DropItem>Abrir</DropItem>
+					<DropItem>Excluir</DropItem>
+				</DropdownArea>
+
+				<fieldset id="extra-options">
+					<button class="empty_button find_in_page" title="Localizar"></button>
+					<button class="empty_button highlight" title="Destacar"></button>
+					<button class="empty_button file_upload" title="Exportar"></button>
+					<div class="autosave-container">
+						<label for="auto-sabe">Autosave</label>
+						<input type="checkbox" />
+					</div>
+					<button class="empty_button history" title="Histórico"></button>
+				</fieldset>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-export default {
-	name: 'HeaderApp'
-}
+	import DropdownArea from "./dropdown/DropdownArea.vue";
+	import Dropdown from "./dropdown/Dropdown.vue";
+	import DropItem from "./dropdown/DropItem.vue";
+
+	export default {
+		name: "HeaderApp",
+		components: {
+			DropdownArea,
+			Dropdown,
+			DropItem,
+		},
+		methods: {
+			showModal(modal) {
+				try {
+					document.querySelector(".onModal").classList.toggle("onModal");
+				} catch (error) {}
+				document.querySelector("#modal").style.display = "flex";
+				document.querySelector(modal).classList.add("onModal");
+			},
+		},
+	};
 </script>
-
-<style lang="scss" scoped>
-@import "./../assets/sass/colors.scss";
-@import "./../assets/sass/borders_and_shadows.scss";
-#header{
-	position: sticky;
-	top: 0;
-	z-index: 3;
-	box-shadow: $shadow-2;
-}
-
-
-#header_bottom_row,
-#header_top_row 
-{
-	padding: 0 24px;
-	display: flex;
-	align-items: center;
-	height: 48px;
-	max-height: 48px;
-	box-sizing: border-box;
-}
-
-
-#header__buttons 
-{
-	display: flex;
-	align-items: center;
-}
-
-#header_top_row .empty-button
-{
-	height: 48px;
-	width: 48px;
-	background-size: 24px;
-}
-
-#header_top_row .empty-button:hover
-{
-	background-color: invert($color-primary-dark);
-	filter: invert(1);
-	transition: all ease-in-out 300ms;
-}
-
-#header_top_row 
-{
-	display: grid;
-	grid-template-columns: auto auto;
-	justify-content: space-between;
-
-	background: $color-neutral-white-pure;
-}
-
-#header_bottom_row
-{
-	width: 100%;
-	background: $color-primary-light;
-}
-
-.empty-button.help
-{
-	margin-right: 0;
-}
-</style>

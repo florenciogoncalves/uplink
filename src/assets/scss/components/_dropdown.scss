@@ -1,0 +1,21 @@
+// Dropdown_area
+.dropdown_area {
+	position: relative;
+}
+
+.empty_button.help
+{
+	margin-right: 0;
+}
+
+.dropdown_help 
+{
+	@include mix_dropdown(right);
+}
+.dropdown_consult {
+	@include mix_dropdown(left);
+}
+
+.dropdown_file {
+	@include mix_dropdown(left);
+}

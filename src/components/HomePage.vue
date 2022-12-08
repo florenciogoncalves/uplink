@@ -1,5 +1,5 @@
 <template>
-    <div id="container-hello-page">
+    <div id="container-home-page">
         <div class="container">
 					<h2 class="h2">Olá! Você está no upLink</h2>
 					<p class="p">
@@ -12,7 +12,7 @@
 							</div>
 							<fieldset class="fieldset-search">
 								<input class="" type="text" disabled placeholder="Selecione um critério">
-								<button class="input-button search"></button>
+								<button class="input-button search" @click="search()"></button>
 							</fieldset>
 					</div>
 				</div>
@@ -21,23 +21,33 @@
 
 <script>
     export  default {
-        name: 'HelloPage',
+        name: 'HomePage',
+		methods: {
+			search() {
+				document.querySelector('#container-home-page').style.display = 'none'
+				document.querySelector('#header_bottom_row #extra-options').classList.toggle('if_onresult')
+				document.querySelector('#results-page').classList.toggle('if_onresults')
+			}
+		},
     }
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/sass/colors.scss";
-#container-hello-page
+@import "./../assets/scss/colors.scss";
+@import "./../assets/scss/borders_and_shadows.scss";
+
+#container-home-page
 {
 	z-index: 1;
-  padding: 8px 24px;
+  	padding: 8px 24px;
+	box-shadow: $shadow-2;
 
-	background: url(./../assets/images/fox-dashing.svg) no-repeat bottom 25px right, url(./../assets/images/bg-hello-page.svg) no-repeat bottom right, $color-primary-light;
-	background-size: 60vw;
+	background: url(./../assets/images/fox-dashing.svg) no-repeat bottom 25px right 3.5rem, url(./../assets/images/bg-home-page.svg) no-repeat bottom right;
+	background-size: 50%;
 	background-attachment: fixed;
 }
 
-#container-hello-page .container
+#container-home-page .container
 {
 	margin-top: 20vh;
 	margin-left: 3vw;
@@ -66,12 +76,12 @@ h2
 }
 
 @media only screen and (max-width: 576px) {
-	#container-hello-page
+	#container-home-page
 	{
 		background-size: 85vw;
 	}
 
-	#container-hello-page .container
+	#container-home-page .container
 	{
 		margin-top: 10vh;
 	}

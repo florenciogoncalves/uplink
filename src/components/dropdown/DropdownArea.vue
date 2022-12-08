@@ -1,0 +1,47 @@
+<template>
+	<div class="dropdown_area">
+		<DropdownButton
+			:title="btnTitle"
+			:class="btnClass"
+			@click="toggle_dropdown($event)"></DropdownButton>
+		<Dropdown :class="'dropdown_' + btnClass" v-show="isDropdownShow">
+			<slot></slot>
+		</Dropdown>
+	</div>
+</template>
+
+<script>
+	import Dropdown from "./Dropdown.vue";
+	import DropdownButton from "./DropdownButton.vue";
+	export default {
+		name: "DropdownArea",
+		components: {
+			Dropdown,
+			DropdownButton,
+		},
+		data() {
+			return {
+				isDropdownShow: false,
+			};
+		},
+		props: {
+			btnClass: String,
+			btnTitle: String,
+		},
+		methods: {
+			toggle_dropdown(e) {
+				let el = this;
+				this.isDropdownShow = !this.isDropdownShow;
+				if (this.isDropdownShow) {
+					document.addEventListener("click", closeDropdown);
+
+					function closeDropdown(evt) {
+						if (!el.$el.contains(evt.target)) {
+							el.isDropdownShow = false;
+						}
+					}
+				}
+			},
+		},
+	};
+</script>
