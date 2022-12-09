@@ -1,39 +1,36 @@
-#modal {
-	& > * {
+#modal
+{
+
+	& > div {
 		border-radius: $small-border;
 		position: relative;
 		display: none;
 		width: 600px;
-		min-height: 224px;
 		padding: 8px 24px;
 		box-sizing: border-box;
 
 		background: $color-neutral-white-pure;
 
-// Visualize modal with a class
-
-	&.on_modal {
-	display: block;}
-
-		&#fonts_modal {
+		&:not(.modal-simple) {
 			width: 800px;
 		}
 
-		.modal_body {
-			min-height: 224px !important;
-			min-width: 600px;
-		}
-
-		.fox-head-logo {
+		.fox-head-logo
+		{
 			width: 60px;
 			height: 60px;
 			display: block;
 			margin: auto;
 			background: url(./../images/fox-cabeca.svg) no-repeat center;
-			background-size: contain;
+			background-size: contain
 		}
 
-		.close_modal {
+		&:not(.modal-simple) .fox-head-logo {
+			display: none !important;
+		}
+
+		.close-modal
+		{
 			position: absolute;
 			width: 13px;
 			height: 13px;
@@ -41,24 +38,28 @@
 			right: 13px;
 			border: none;
 			cursor: pointer;
-
+			
 			background: url(./../images/Icons/close.svg) no-repeat center;
+
 		}
 
-		.h4 {
+		.h4
+		{
 			color: $color-primary-dark;
 			text-align: center;
 		}
 
-		&:not(.modal_body) h4 {
+		&:not(.modal-simple) h4 {
 			width: 100%;
 		}
 
-		.p-2 {
+		.p-2
+		{
 			text-align: center;
 		}
 
-		.buttons-container {
+		.buttons-container
+		{
 			margin: 18px auto;
 			display: grid;
 			grid-template-columns: auto auto;
@@ -68,6 +69,7 @@
 
 		/* For subdivision on modals*/
 		.modal_division {
+			
 			& > * {
 				padding: 0 16px;
 			}
@@ -99,16 +101,11 @@
 				}
 			}
 		}
-
-		.modal_subtitle {
-			@extend .p-2;
-			text-align: start;
-			color: $font-color-medium;
-		}
 	}
 
+
 	/* More complex modals */
-	.on_modal.composite_modal {
+	.onModal.modal-content {
 		display: grid !important;
 		grid-template-rows: max-content 1fr;
 		max-height: 480px;
@@ -137,17 +134,24 @@
 			background: $color-neutral-white-pure;
 		}
 
+		.modal_subtitle {
+			@extend .p-2;
+			text-align: start;
+			color: $font-color-medium;
+		}
+
 		.modal_text {
 			@extend .p;
 
 			color: $font-color-medium;
 		}
 
+
 		& > * {
 			padding: 0 24px;
 		}
 
-		.composite_modal_slot {
+		#_modal_container {
 			box-sizing: border-box;
 			max-width: 100%;
 			max-height: 100%;
@@ -155,16 +159,15 @@
 			flex-direction: column;
 			padding-top: 24px;
 			overflow-y: scroll;
-			align-items: center;
 		}
 
-		.modal_description {
+		.txt-center {
 			text-align: center;
 			margin-bottom: 24px;
 		}
 	}
 
-	position: absolute;
+  position: absolute;
 	width: 100%;
 	height: 100%;
 	display: none;
@@ -174,3 +177,15 @@
 
 	background: rgba(0, 0, 0, 0.5);
 }
+
+/*
+.modal-simple
+{
+
+
+}
+
+.modal-header
+{
+
+}*/

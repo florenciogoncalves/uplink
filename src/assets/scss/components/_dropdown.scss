@@ -8,12 +8,14 @@
 	margin-right: 0;
 }
 
-.dropdown
+.dropdown_help 
 {
-	@include mix_dropdown();
+	@include mix_dropdown(right);
+}
+.dropdown_consult {
+	@include mix_dropdown(left);
 }
 
-.dropdown_area.to_right .dropdown{
-	right: 0;
-	left: auto;
+.dropdown_file {
+	@include mix_dropdown(left);
 }
