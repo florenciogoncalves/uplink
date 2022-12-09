@@ -1,15 +1,12 @@
 $p-8-24: 8px 24px;
 
-
-html
-{
+html {
 	height: 100%;
 	max-height: 100%;
 	box-sizing: border-box;
 }
 
-body
-{
+body {
 	height: 100%;
 
 	font-family: "Open Sans", sans-serif;
@@ -33,15 +30,12 @@ body
 	appearance: none;
 }
 
-
-
 /*
 *********************
 *** 			App			***
 *********************
 */
-	#app 
-{
+#app {
 	height: 100%;
 	display: grid;
 	position: relative;
@@ -53,62 +47,60 @@ body
 *** 			HeaderApp 			***
 *****************************
 */
-	#header {
-		position: sticky;
-		top: 0;
-		z-index: 3;
-	}
+#header {
+	position: sticky;
+	top: 0;
+	z-index: 3;
+}
 
-	#header_bottom_row,
-	#header_top_row {
-		padding: 0 24px;
-		display: flex;
-		align-items: center;
-		height: 48px;
-		max-height: 48px;
-		box-sizing: border-box;
-	}
+#header_bottom_row,
+#header_top_row {
+	padding: 0 24px;
+	display: flex;
+	align-items: center;
+	height: 48px;
+	max-height: 48px;
+	box-sizing: border-box;
+}
 
-	#header__buttons {
-		display: flex;
-		align-items: center;
-		width: 100%;
-	}
+#header__buttons {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
 
-	#header_top_row .empty_button {
-		position: relative;
-		height: 48px;
-		width: 48px;
-		background-size: 24px;
-	}
+#header_top_row .empty_button {
+	position: relative;
+	height: 48px;
+	width: 48px;
+	background-size: 24px;
+}
 
-	#header_top_row .empty_button:hover {
-		background-color: invert($color-primary-dark);
-		filter: invert(1);
-		transition: all ease-in-out 300ms;
-	}
+#header_top_row .empty_button:hover {
+	background-color: invert($color-primary-dark);
+	filter: invert(1);
+	transition: all ease-in-out 300ms;
+}
 
-	#header_top_row {
-		display: grid;
-		grid-template-columns: auto auto;
-		justify-content: space-between;
+#header_top_row {
+	display: grid;
+	grid-template-columns: auto auto;
+	justify-content: space-between;
 
-		background: $color-neutral-white-pure;
-	}
+	background: $color-neutral-white-pure;
+}
 
-	#header_bottom_row {
-		width: 100%;
-		background: none;
-	}
-
-
+#header_bottom_row {
+	width: 100%;
+	background: none;
+}
 
 /*
 *****************************
 *** 			ResultsPage			***
 *****************************
 */
-#results-page {
+#results_page {
 	position: relative;
 	display: none;
 	grid-template-rows: 1fr max-content;
@@ -125,6 +117,6 @@ body
 	}
 }
 
-#results-page.if_onresults {
+#results_page.if_onresults {
 	display: grid;
 }

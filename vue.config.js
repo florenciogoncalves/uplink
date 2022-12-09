@@ -5,7 +5,6 @@ module.exports = defineConfig({
     index: {
       // entry for the page
       entry: 'src/main.js',
-      title: 'upLink',
-    },
+     },
   }
 })

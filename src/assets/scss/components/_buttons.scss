@@ -2,9 +2,8 @@ button {
 	cursor: pointer;
 }
 
-/* Button-primary*/
-.button-primary
-{
+/* button_primary*/
+.button_primary {
 	@include mix_button($small-border);
 
 	border: none;
@@ -12,84 +11,69 @@ button {
 	background-color: $color-primary-dark;
 }
 
-.button-primary:hover
-{
+.button_primary:hover {
 	background-color: ($color-primary-medium);
 }
 
-.button-primary:active 
-{
+.button_primary:active {
 	background-color: $color-primary-dark;
 }
 
-.button-primary:disabled
-{
+.button_primary:disabled {
 	background-color: $color-neutral-white-dark;
 }
 
-
 /* Button-secondary*/
-.button-secondary
-{
+.button-secondary {
 	@include mix_button($small-border);
-	@include mix_btn_border_and_color ($color-primary-dark);
+	@include mix_btn_border_and_color($color-primary-dark);
 }
 
-.button-secondary:hover
-{
-	@include mix_btn_border_and_color ($color-primary-medium);
+.button-secondary:hover {
+	@include mix_btn_border_and_color($color-primary-medium);
 }
 
-.button-secondary:active 
-{
+.button-secondary:active {
 	border: $color-primary-dark;
 	background-color: $color-primary-dark;
 	color: $color-neutral-white-pure;
 }
 
-.button-secondary:disabled
-{
+.button-secondary:disabled {
 	border: $color-neutral-white-dark;
 	color: $color-neutral-white-dark;
 }
 
-.button-text 
-{
+.button_text {
 	@include mix_button($small-border);
 	text-decoration: underline;
 	border: none;
 	background: none;
 	color: $color-primary-dark;
 
-	&:hover
-	{
+	&:hover {
 		color: $color-primary-medium;
 	}
 
-	&:active
-	{
+	&:active {
 		color: $color-primary-dark;
 	}
 
-	&:disabled
-	{
+	&:disabled {
 		color: $color-neutral-white-dark;
 	}
-
 }
 
-
-#results-page {
+#results_page {
 	display: flex !important;
 }
-
 
 #btns-map {
 	display: flex;
 	flex-direction: column !important;
 	gap: 16px;
 
-	div{
+	div {
 		display: flex;
 		flex-direction: column;
 		gap: 4px;
@@ -110,11 +94,11 @@ button {
 		#default {
 			@include mix_insert_img($hub_icon);
 		}
-	
+
 		#schema {
 			@include mix_insert_img($schema_icon);
 		}
-	
+
 		#account-tree {
 			@include mix_insert_img($tree_icon);
 		}
@@ -134,5 +118,4 @@ button {
 	#subtitles {
 		@include mix_insert_img($subtitles_icon);
 	}
-
 }
