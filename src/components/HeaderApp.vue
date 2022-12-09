@@ -1,15 +1,20 @@
 <template>
 	<div id="header">
 		<div id="header_top_row">
-			<img class="header_logo" src="./../../public/logo.svg" alt="" />
+			<router-link to="/">
+				<img class="header_logo" src="./../../public/logo.svg" alt="upLink"
+			/></router-link>
 			<div id="header__buttons">
-				<DropdownArea btnClass="help" btnTitle="Ajuda">
+				<DropdownArea btnClass="help" btnTitle="Ajuda" :class="'to_right'">
 					<DropItem>Tutorial (em breve)</DropItem>
-					<DropItem @click="showModal('#modal-fonts')">Fontes</DropItem>
+					<DropItem @click="$emit('showModal', 'fonts_modal')">Fontes</DropItem>
 					<DropItem>FAQ (em breve)</DropItem>
 				</DropdownArea>
 
-				<button title="Voltar ao upMiner" class="empty_button apps"></button>
+				<button
+					title="Voltar ao upMiner"
+					class="empty_button apps"
+					@click="$emit('showModal', 'back_to_upminer_modal')"></button>
 			</div>
 		</div>
 
@@ -17,9 +22,13 @@
 			<div id="header__buttons">
 				<DropdownArea btnClass="consult" btnTitle="Consulta">
 					<DropItem>
-						<a href="./HomePage" target="_blank">Nova consulta</a>
+						<a href="./" target="_blank">Nova consulta</a>
 					</DropItem>
-					<DropItem :isBtnDisabled="true">Adicionar</DropItem>
+					<DropItem
+						:isBtnDisabled="!expandBtnOptions"
+						@click="$emit('showModal', 'add_modal')"
+						>Adicionar</DropItem
+					>
 				</DropdownArea>
 
 				<DropdownArea btnClass="file" btnTitle="Arquivo">
@@ -28,13 +37,33 @@
 					<DropItem>Excluir</DropItem>
 				</DropdownArea>
 
-				<fieldset id="extra-options">
-					<button class="empty_button find_in_page" title="Localizar"></button>
-					<button class="empty_button highlight" title="Destacar"></button>
-					<button class="empty_button file_upload" title="Exportar"></button>
+				<fieldset id="extra_options" v-show="expandBtnOptions">
+					<button
+						class="empty_button find_in_page"
+						title="Localizar"
+						@click="$emit('showModal', 'to_locate_modal')"></button>
+					<DropdownArea btnClass="highlight" btnTitle="Destacar">
+						<DropItem>Administradores</DropItem>
+						<DropItem>PEP</DropItem>
+						<DropItem>Pessoas Físicas</DropItem>
+						<DropItem>Pessoas Jurídicas</DropItem>
+						<DropItem>Desfazer destaque</DropItem>
+					</DropdownArea>
+					<DropdownArea btnClass="file_upload" title="Exportar">
+						<DropItem>JPEG</DropItem>
+						<DropItem>PNG</DropItem>
+						<DropItem>PDF</DropItem>
+					</DropdownArea>
 					<div class="autosave-container">
 						<label for="auto-sabe">Autosave</label>
-						<input type="checkbox" />
+						<input
+							type="checkbox"
+							:title="`Salvamento automático ${
+								autoSave == true ? 'ativado' : 'desativado'
+							}.
+							`"
+							@click="toggleAutoSave()"
+							:checked="autoSave" />
 					</div>
 					<button class="empty_button history" title="Histórico"></button>
 				</fieldset>
@@ -45,24 +74,46 @@
 
 <script>
 	import DropdownArea from "./dropdown/DropdownArea.vue";
-	import Dropdown from "./dropdown/Dropdown.vue";
 	import DropItem from "./dropdown/DropItem.vue";
+	import Consult from "./Consult.vue";
 
 	export default {
 		name: "HeaderApp",
+		data() {
+			return {
+				autoSave: localStorage.autoSave,
+				onResult: sessionStorage.route == "ResultsPage" ? true : false,
+			};
+		},
 		components: {
 			DropdownArea,
-			Dropdown,
 			DropItem,
+			Consult,
+		},
+		props: {
+			expandBtnOptions: Boolean,
 		},
 		methods: {
-			showModal(modal) {
-				try {
-					document.querySelector(".onModal").classList.toggle("onModal");
-				} catch (error) {}
-				document.querySelector("#modal").style.display = "flex";
-				document.querySelector(modal).classList.add("onModal");
+			toggleAutoSave() {
+				sessionStorage.autoSave == "desativado"
+					? (sessionStorage.autoSave = "ativado")
+					: (sessionStorage.autoSave = "desativado");
+				sessionStorage.autoSave == "desativado"
+					? (this.autoSave = false)
+					: (this.autoSave = true);
 			},
+		},
+		mounted() {
+			if (
+				sessionStorage.autoSave != "desativado" &&
+				sessionStorage.autoSave != "ativado"
+			) {
+				sessionStorage.autoSave = "desativado";
+			}
+
+			sessionStorage.autoSave == "desativado"
+				? (this.autoSave = false)
+				: (this.autoSave = true);
 		},
 	};
 </script>

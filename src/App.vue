@@ -1,28 +1,46 @@
 <template>
-  <header-app></header-app>
-  <HomePage></HomePage>
-  <results></results>
-  <modals></modals>
+	<header-app :expandBtnOptions="showMoreBtns" @showModal="showModal"></header-app>
+	<router-view @onResult="onResult" @showModal="showModal"/>
+	<modals></modals>
 </template>
 
 <script>
+	import HeaderApp from "./components/HeaderApp.vue";
+	import HomePage from "./components/views/HomePage.vue";
+	import Modals from "./components/modal/Modals.vue";
+	import ResultsPage from "./components/views/ResultsPage.vue";
+	import { RouterView } from "vue-router";
 
-import HeaderApp from './components/HeaderApp.vue'
-import HomePage from './components/HomePage.vue';
-import Modals from './components/Modals.vue';
-import Results from './components/Results.vue';
-
-export default {
-  name: 'App',
-  components: {
-    HeaderApp,
-    HomePage,
-    Results,
-    Modals
-  }
-}
-
+	export default {
+		name: "App",
+		data() {
+			return {
+				showMoreBtns: false,
+			};
+		},
+		components: {
+			HeaderApp,
+			HomePage,
+			ResultsPage,
+			Modals,
+		},
+		methods: {
+			onResult(e) {
+				if (e) {
+					this.showMoreBtns = true;
+				} else {
+					this.showMoreBtns = false;
+				}
+			},
+			showModal(modal) {
+				try {
+					document.querySelector(".onModal").classList.toggle("onModal");
+				} catch (error) {}
+				document.querySelector("#modal").style.display = "flex";
+				document.querySelector(`#${modal}`).classList.add("on_modal");
+			},
+		},
+	};
 </script>
 
-<style lang="scss" src="./assets/scss/main.scss">
-</style>
+<style lang="scss" src="./assets/scss/main.scss"></style>
