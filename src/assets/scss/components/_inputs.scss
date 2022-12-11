@@ -139,7 +139,7 @@
 	display: grid;
 	grid-template-columns: 1fr max-content;
 	margin-left: 15px;
-	border: 1px solid $color-neutral-white-dark;
+	border: $border;
 	box-sizing: border-box;
 	border-radius: $small-border;
 	overflow: hidden;
@@ -169,13 +169,12 @@
 		margin-right: auto;
 
 		input {
-				background: $color-neutral-white-pure;
-				
-			}
+			background: $color-neutral-white-pure;
+		}
 	}
 	.search {
-			background-image: url(./../images/Icons/find_in_page-white.svg) ;
-		}
+		background-image: url(./../images/Icons/find_in_page-white.svg);
+	}
 
 	width: 480px;
 	height: 40px;
@@ -209,4 +208,16 @@
 			margin: 15px 0 0;
 		}
 	}
+}
+
+// Text area input
+.input_text {
+	width: 100%;
+	max-width: 480px;
+	height: 40px;
+	padding: 9px 16px 10px;
+	box-sizing: border-box;
+
+	border: $border;
+	border-radius: $small-border;
 }

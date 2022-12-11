@@ -3,7 +3,7 @@
 		<div class="fox-head-logo"></div>
 		<h4 class="h4">{{ modalTitle }}</h4>
 		<p class="modal_subtitle modal_description">{{ modalSubtitle }}</p>
-		<div class="buttons-container">
+		<div class="buttons_container">
 			<button class="button_text can_close_modal" :disabled="btnNoDisabled">
 				Não
 			</button>
@@ -26,10 +26,3 @@
 		},
 	};
 </script>
-
-<style lang="scss" scoped>
-	.modal_description {
-		text-align: center !important;
-		margin-top: 8px;
-	}
-</style>

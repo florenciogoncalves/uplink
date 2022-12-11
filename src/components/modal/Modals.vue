@@ -259,9 +259,7 @@
 			:modalTitle="'Abrir'"
 			:modalSubtitle="'Ao abrir um mapa salvo anteriormente, as informações\npodem estar desatualizadas'">
 			<h5 class="modal_subtitle">Pessoa usuária</h5>
-			<select name="" id="">
-				<option value="" selected disabled>Nome da pessoa usuária</option>
-			</select>
+			<input type="text" class="input_text" />
 			<h5 class="modal_subtitle">Mapas</h5>
 			<p class="modal_text">
 				A pessoa selecionada ainda não possui nenhum mapa salvo no upLink.
@@ -274,12 +272,41 @@
 			:modalTitle="'Abrir'"
 			:modalSubtitle="'Ao abrir um mapa salvo anteriormente, as informações\npodem estar desatualizadas'">
 			<h5 class="modal_subtitle">Pessoa usuária</h5>
-			<select name="" id="">
-				<option value="" selected disabled>Nome da pessoa usuária</option>
-			</select>
+			<input class="input_text consult_data_list" type="text" placeholder="Nome do usuário" />
 			<h5 class="modal_subtitle">Mapas</h5>
-			<div class="open_modal_maps">
-			
+			<div class="open_modal_maps accordion" id="accordionFather">
+				<AccordionItem
+					v-for="(item, index) in accordionList"
+					:key="index"
+					:mapName="accordionList[index].mapName"
+					:id="index"
+					:mapCreation="{
+						date: accordionList[index].mapCreation.date,
+						time: accordionList[index].mapCreation.time,
+					}"
+					:lastModified="{
+						date: accordionList[index].lastModified.date,
+						time: accordionList[index].lastModified.time,
+					}"
+					:changedBy="accordionList[index].changedBy"
+					:isAuthor="accordionList[index].isAuthor"
+					@showModal="showModal" />
+			</div>
+		</CompositeModal>
+
+		<!-- Save modal -->
+		<CompositeModal
+			id="save_modal"
+			:modalTitle="'Salvar'"
+			:modalSubtitle="'Digite um nome para salvar o mapa atual'">
+			<input
+				class="input_text"
+				type="text"
+				placeholder="Meu mapa"
+				id="map_save_name" />
+			<div class="buttons_container">
+				<button class="button_text can_close_modal">Cancelar</button>
+				<button class="button_primary can_close_modal">Salvar</button>
 			</div>
 		</CompositeModal>
 	</div>
@@ -291,6 +318,7 @@
 	import CompositeModal from "./CompositeModal.vue";
 	import Consult from "../Consult.vue";
 	import ResearchField from "../ResearchField.vue";
+	import AccordionItem from "../AccordionItem.vue";
 
 	export default {
 		name: "Modals",
@@ -300,6 +328,28 @@
 			CompositeModal,
 			Consult,
 			ResearchField,
+			AccordionItem,
+		},
+		data() {
+			return {
+				// Values ​​for test only
+				accordionList: [
+					{
+						mapName: "Júlio dos Santos",
+						mapCreation: { date: "20/julho/2022", time: "17:34:59" },
+						lastModified: { date: "28/julho/2022", time: "17:34:59" },
+						changedBy: "O criador",
+						isAuthor: true,
+					},
+					{
+						mapName: "Alberto Anjos",
+						mapCreation: { date: "04/06/2000", time: "18:39:23" },
+						lastModified: { date: "10/dezembro/2022", time: "15:59:47" },
+						changedBy: "O usuário",
+						isAuthor: false,
+					},
+				],
+			};
 		},
 		methods: {
 			showModal(theModal) {

@@ -10,10 +10,11 @@
 
 		background: $color-neutral-white-pure;
 
-// Visualize modal with a class
+		// Visualize modal with a class
 
-	&.on_modal {
-	display: block;}
+		&.on_modal {
+			display: block;
+		}
 
 		&#fonts_modal {
 			width: 800px;
@@ -58,7 +59,7 @@
 			text-align: center;
 		}
 
-		.buttons-container {
+		.buttons_container {
 			margin: 18px auto;
 			display: grid;
 			grid-template-columns: auto auto;
@@ -103,7 +104,12 @@
 		.modal_subtitle {
 			@extend .p-2;
 			text-align: start;
+			width: 480px;
 			color: $font-color-medium;
+		}
+
+		&:not(#fonts_modal) .modal_subtitle {
+			margin: 16px 0 8px;
 		}
 	}
 
@@ -173,4 +179,18 @@
 	z-index: 10;
 
 	background: rgba(0, 0, 0, 0.5);
+}
+
+#save_modal {
+	#map_save_name {
+		width: 480px;
+		height: 40px;
+		border-radius: $small-border;
+	}
+
+	.buttons_container {
+		margin-right: 0;
+	button:first-of-type {
+	content: "Cancelar" !important;}
+	}
 }

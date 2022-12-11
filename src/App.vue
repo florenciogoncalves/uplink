@@ -43,4 +43,4 @@
 	};
 </script>
 
-<style lang="scss" src="./assets/scss/main.scss"></style>
+<style lang="css" src="./assets/css/style.css"></style>

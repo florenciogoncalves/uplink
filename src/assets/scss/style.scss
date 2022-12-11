@@ -14,6 +14,20 @@ body {
 	background-color: $color-primary-light;
 }
 
+* {
+	outline: none;
+}
+
+// Consult.vue
+.p_fj_container {
+	gap: 8px;
+}
+
+// Interative area
+.interative_area {
+		display: flex;
+	}
+
 // Scroll Bar
 *::-webkit-scrollbar {
 	appearance: none;
@@ -28,6 +42,50 @@ body {
 }
 *::-webkit-scrollbar-corner {
 	appearance: none;
+}
+#container_home_page {
+		z-index: 1;
+		padding: 8px 24px;
+		box-shadow: $shadow-2;
+
+		background: url(./../../assets/images/fox-dashing.svg) no-repeat bottom 25px
+				right 3.5rem,
+			url(./../../assets/images/bg-home-page.svg) no-repeat bottom right;
+		background-size: 50%;
+		background-attachment: fixed;
+
+		& .container {
+			margin-top: 20vh;
+			margin-left: 3vw;
+
+			h2 {
+				font-weight: 400;
+				line-height: 150%;
+			}
+
+			.interative_area {
+				display: flex;
+				margin-top: 25px;
+			}
+
+			.interative_area > div {
+				display: flex;
+			}
+		}
+		@media only screen and (max-width: 576px) {
+			& {
+				background-size: 85vw;
+			}
+
+			& .container {
+				margin-top: 10vh;
+			}
+		}
+	}
+// Datalist
+.consult_data_list {
+	background: url(./../images/Icons/#{$expand_more_icon}.svg) no-repeat center !important;
+	background-size: 24px 24px;
 }
 
 /*
@@ -95,6 +153,56 @@ body {
 	background: none;
 }
 
+
+
+/*
+*****************************
+*** 			HomePage  			***
+*****************************
+*/
+#container_home_page {
+		z-index: 1;
+		padding: 8px 24px;
+		box-shadow: $shadow-2;
+
+		background: url(./../../assets/images/fox-dashing.svg) no-repeat bottom 25px
+				right 3.5rem,
+			url(./../../assets/images/bg-home-page.svg) no-repeat bottom right;
+		background-size: 50%;
+		background-attachment: fixed;
+
+		& .container {
+			margin-top: 20vh;
+			margin-left: 3vw;
+
+			h2 {
+				font-weight: 400;
+				line-height: 150%;
+			}
+
+			.interative_area {
+				display: flex;
+				margin-top: 25px;
+			}
+
+			.interative_area > div {
+				display: flex;
+			}
+		}
+		@media only screen and (max-width: 576px) {
+			& {
+				background-size: 85vw;
+			}
+
+			& .container {
+				margin-top: 10vh;
+			}
+		}
+	}
+
+
+
+
 /*
 *****************************
 *** 			ResultsPage			***
@@ -102,21 +210,255 @@ body {
 */
 #results_page {
 	position: relative;
-	display: none;
-	grid-template-rows: 1fr max-content;
 	width: 100%;
 	height: calc(100% - 30px);
 
 	background-color: $color-superlight;
 	box-shadow: $shadow-2;
 
-	#btns-map {
-		position: absolute;
-		left: 24px;
-		bottom: 16px;
+	#network {
+		width: 100%;
+		height: 100%;
 	}
 }
 
-#results_page.if_onresults {
-	display: grid;
+/*
+*****************************
+***				Knot.vue				***
+*****************************
+*/
+.entity {
+	// Entity
+	.knot {
+		width: 32px;
+		height: 32px;
+		background-color: $color-default;
+		&:hover {
+			background-color: $color-default-hover;
+		}
+
+		&.physical_person {
+			background-image: url();
+		}
+		&.physical_person {
+			background-image: url();
+		}
+	}
+
+	// Title
+	.entity_legend * {
+		&.entity_name {
+			@extend .small-2;
+		}
+		&.entity_cpf {
+			@extend .small;
+		}
+		color: $color-neutral-black-medium;
+	}
+}
+/*
+*******************************
+***				Modals.vue				***
+*******************************	
+*/
+#open_modal {
+	height: 480px;
+}
+
+// Confirm modal
+.modal_description {
+	text-align: center !important;
+	margin-top: 8px;
+}
+
+/*
+*********************************
+***			AccordionItem.vue			***
+*********************************
+*/
+.accordion {
+	width: 480px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.accordion-item {
+	& * {
+		color: $color-neutral-black-medium;
+	}
+	&:last-of-type {
+		border-radius: $small-border;
+	}
+	background: #fff;
+	border: $border;
+	&:first-of-type {
+		border-radius: $small-border;
+	}
+
+	.accordion-button.collapsed {
+		border-radius: $small-border;
+	}
+
+	.accordion-button {
+		display: flex;
+		justify-content: space-between;
+		position: relative;
+		align-items: center;
+		width: 100%;
+		height: 40px;
+		padding: 9px 16px 10px;
+		border: 0;
+		border-radius: 0;
+		overflow-anchor: none;
+		box-sizing: border-box;
+
+		background: none;
+
+		// The Arrow
+		&::after {
+			content: " ";
+			right: 8px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 24px;
+			height: 24px;
+			position: absolute;
+			filter: fill($color-neutral-black-light);
+
+			background: url(./../images/Icons/#{$expand_more_icon}.svg) no-repeat
+				center;
+		}
+
+		&:not(.collapsed) {
+			border-bottom: $border;
+			border-color: $color-primary-dark;
+
+			&::after {
+				background: url(./../images/Icons/#{$expand_less_icon}.svg);
+			}
+		}
+	}
+
+	&:last-of-type .accordion-collapse {
+		border-top-right-radius: $small-border;
+		border-top-left-radius: $small-border;
+	}
+
+	.collapse:not(.show) {
+		display: none;
+	}
+
+	.accordion-body {
+		padding: 16px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+
+		& > * {
+			font-size: 12px;
+			line-height: 16px;
+			font-weight: 600;
+		}
+
+		p {
+			&:first-of-type span {
+				color: $color-primary-dark;
+			}
+			font-weight: 600;
+			span {
+				font-weight: 400;
+			}
+		}
+	}
+}
+
+/*
+******************************
+*** 			MapEditBtns			 ***
+******************************
+*/
+.map_edit_btns {
+	display: flex;
+	position: absolute;
+	right: 40px;
+	gap: 8px;
+
+	button {
+		width: 24px;
+		height: 24px;
+		background: none;
+		background-position: center;
+		background-repeat: no-repeat;
+		border: none;
+	}
+
+	.delete {
+		background-image: url(../images/Icons/delete.svg);
+		&:disabled {
+			background-image: url(../images/Icons/delete-disabled.svg);
+		}
+	}
+	.edit {
+		background-image: url(../images/Icons/edit.svg);
+		&:disabled {
+			background-image: url(../images/Icons/edit-disabled.svg);
+		}
+	}
+	.open_in_new {
+		background-image: url(../images/Icons/open_in_new.svg);
+	}
+}
+
+/*
+******************************
+*** 			MapSwitches			 ***
+******************************
+*/
+#container_map {
+	position: absolute;
+	left: 24px;
+	bottom: 24px;
+
+	.tooltip_caller {
+		position: relative;
+
+		.tooltip_desc {
+			display: none;
+		}
+		&:hover .tooltip_desc {
+			display: block;
+			position: absolute;
+			left: calc(100% + 8px);
+
+			top: 50%;
+			transform: translateY(-50%);
+			padding: 4px 10px;
+			border-radius: $small-border;
+			box-shadow: $tooltip-shadow;
+			box-sizing: border-box;
+			z-index: 11;
+
+			font-weight: 400;
+			font-size: 12px;
+			line-height: 16px;
+			color: $color-neutral-white-pure;
+			white-space: nowrap;
+
+			background: $color-neutral-black-dark;
+
+			&::before {
+				content: "";
+				position: absolute;
+				left: -5px;
+				height: 10px;
+				width: 10px;
+				top: 50%;
+				transform: rotate(45deg) translateY(-50%);
+				z-index: -10;
+
+				background: $color-neutral-black-dark;
+			}
+		}
+	}
 }

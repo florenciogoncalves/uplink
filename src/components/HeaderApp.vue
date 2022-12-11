@@ -32,8 +32,12 @@
 				</DropdownArea>
 
 				<DropdownArea btnClass="file" btnTitle="Arquivo">
-					<DropItem>Salvar</DropItem>
-					<DropItem>Abrir</DropItem>
+					<DropItem
+						@click="$emit('showModal', 'save_modal')"
+						:isBtnDisabled="!expandBtnOptions"
+						>Salvar</DropItem
+					>
+					<DropItem @click="$emit('showModal', 'open_modal')">Abrir</DropItem>
 					<DropItem>Excluir</DropItem>
 				</DropdownArea>
 
@@ -58,8 +62,10 @@
 						<label for="auto-sabe">Autosave</label>
 						<input
 							type="checkbox"
-							:title="`Salvamento automático ${
-								autoSave == true ? 'ativado' : 'desativado'
+							:title="`${
+								autoSave == true
+									? 'Salvamento automático a cada 3 min'
+									: 'Clique para ativar o salvamento automático'
 							}.
 							`"
 							@click="toggleAutoSave()"
