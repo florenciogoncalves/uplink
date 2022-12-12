@@ -4,19 +4,19 @@
 		<AlertModal
 			id="no_results_modal"
 			:modalTitle="'Não houve resultados'"
-			:modalSubtitle="'O critério consultado não retornou resultados.\nTente novamente com um documento válido.'" />
+			:modalSubtitle="'O critério consultado não retornou resultados.<br>Tente novamente com um documento válido.'" />
 
 		<!-- Sucess delete -->
 		<AlertModal
 			id="sucess_delete_modal"
 			:modalTitle="'Excluir'"
-			:modalSubtitle="'O mapa foi excluído com sucesso!\nLembre-se que o mapa foi excluído apenas do arquivo no upLink.'" />
+			:modalSubtitle="'O mapa foi excluído com sucesso!<br>Lembre-se que o mapa foi excluído apenas do arquivo no upLink.'" />
 
 		<!-- Save -->
 		<AlertModal
 			id="save_confirmation_modal"
 			:modalTitle="'Salvar'"
-			:modalSubtitle="'O mapa foi salvo com sucesso!\nPara visualizar, clique no botão Arquivo em seguida em Abrir.'" />
+			:modalSubtitle="'O mapa foi salvo com sucesso!<br>Para visualizar, clique no botão Arquivo em seguida em Abrir.'" />
 
 		<!-- Back to upMiner -->
 		<ConfirmModal
@@ -29,13 +29,17 @@
 		<ConfirmModal
 			id="onload_autosave_modal"
 			:modalTitle="'Salvamento automático em andamento'"
-			:modalSubtitle="'Ao sair do upLink algumas alterações poderão não ter sido salves.\nDeseja sair assim mesmo?'" />
+			:modalSubtitle="'Ao sair do upLink algumas alterações poderão não ter sido salves.<br>Deseja sair assim mesmo?'" />
 
 		<!-- Delete map -->
 		<ConfirmModal
 			id="delete_map_modal"
 			:modalTitle="'Excluir'"
-			:modalSubtitle="'Tem certeza que deseja excluir o mapa do seu arquivo no upLink?'" />
+			:modalSubtitle="'Tem certeza que deseja excluir o mapa do seu arquivo no upLink?'"
+			:btnYesFunction="true"
+			:btnNoFunction="true"
+			@btnNoDoes="localShowModal('open_modal')"
+			@btnYesDoes="localShowModal('sucess_delete_modal')" />
 
 		<!-- Fonts on upLink -->
 		<CompositeModal
@@ -241,7 +245,7 @@
 		<CompositeModal
 			id="to_locate_modal"
 			:modalTitle="'Localizar'"
-			:modalSubtitle="'Localize um nó, presente no mapa, através de critérios como\nnome, razão social, CPF ou CNPJ'">
+			:modalSubtitle="'Localize um nó, presente no mapa, através de critérios como<br>nome, razão social, CPF ou CNPJ'">
 			<ResearchField />
 		</CompositeModal>
 
@@ -249,15 +253,15 @@
 		<CompositeModal
 			id="add_modal"
 			:modalTitle="'Adicionar'"
-			:modalSubtitle="'Adicione uma nova consulta que pode ou não ter relação com seu\nmapa atual. Você pode utilizar esse recurso para conferir dados.'"
-			><Consult :btnRedirect="false" />
+			:modalSubtitle="'Adicione uma nova consulta que pode ou não ter relação com seu<br>mapa atual. Você pode utilizar esse recurso para conferir dados.'"
+			><PersonSearchField :btnRedirect="false" />
 		</CompositeModal>
 
 		<!-- Open modal - no results -->
 		<CompositeModal
 			id="open_no_results_modal"
 			:modalTitle="'Abrir'"
-			:modalSubtitle="'Ao abrir um mapa salvo anteriormente, as informações\npodem estar desatualizadas'">
+			:modalSubtitle="'Ao abrir um mapa salvo anteriormente, as informações<br>podem estar desatualizadas'">
 			<h5 class="modal_subtitle">Pessoa usuária</h5>
 			<input type="text" class="input_text" />
 			<h5 class="modal_subtitle">Mapas</h5>
@@ -269,28 +273,34 @@
 		<!-- Open modal -->
 		<CompositeModal
 			id="open_modal"
-			:modalTitle="'Abrir'"
-			:modalSubtitle="'Ao abrir um mapa salvo anteriormente, as informações\npodem estar desatualizadas'">
+			:modalTitle="sameModal == true ? 'Excluir' : 'Abrir'"
+			:modalSubtitle="
+				'Ao abrir um mapa salvo anteriormente, as informações<br>podem estar desatualizadas' +
+				sameModal
+			">
 			<h5 class="modal_subtitle">Pessoa usuária</h5>
-			<input class="input_text consult_data_list" type="text" placeholder="Nome do usuário" />
+			<input
+				class="input_text consult_data_list"
+				type="text"
+				placeholder="Nome do usuário" />
 			<h5 class="modal_subtitle">Mapas</h5>
 			<div class="open_modal_maps accordion" id="accordionFather">
 				<AccordionItem
-					v-for="(item, index) in accordionList"
+					v-for="(item, index) in listSavedMaps"
 					:key="index"
-					:mapName="accordionList[index].mapName"
+					:mapName="listSavedMaps[index].mapName"
 					:id="index"
 					:mapCreation="{
-						date: accordionList[index].mapCreation.date,
-						time: accordionList[index].mapCreation.time,
+						date: listSavedMaps[index].mapCreation.date,
+						time: listSavedMaps[index].mapCreation.time,
 					}"
 					:lastModified="{
-						date: accordionList[index].lastModified.date,
-						time: accordionList[index].lastModified.time,
+						date: listSavedMaps[index].lastModified.date,
+						time: listSavedMaps[index].lastModified.time,
 					}"
-					:changedBy="accordionList[index].changedBy"
-					:isAuthor="accordionList[index].isAuthor"
-					@showModal="showModal" />
+					:changedBy="listSavedMaps[index].changedBy"
+					:isAuthor="listSavedMaps[index].isAuthor"
+					@showModal="localShowModal" />
 			</div>
 		</CompositeModal>
 
@@ -306,7 +316,11 @@
 				id="map_save_name" />
 			<div class="buttons_container">
 				<button class="button_text can_close_modal">Cancelar</button>
-				<button class="button_primary can_close_modal">Salvar</button>
+				<button
+					class="button_primary"
+					@click="localShowModal('save_confirmation_modal')">
+					Salvar
+				</button>
 			</div>
 		</CompositeModal>
 	</div>
@@ -316,7 +330,7 @@
 	import AlertModal from "./AlertModal.vue";
 	import ConfirmModal from "./ConfirmModal.vue";
 	import CompositeModal from "./CompositeModal.vue";
-	import Consult from "../Consult.vue";
+	import PersonSearchField from "../PersonSearchField.vue";
 	import ResearchField from "../ResearchField.vue";
 	import AccordionItem from "../AccordionItem.vue";
 
@@ -326,23 +340,26 @@
 			AlertModal,
 			ConfirmModal,
 			CompositeModal,
-			Consult,
+			PersonSearchField,
 			ResearchField,
 			AccordionItem,
 		},
 		data() {
 			return {
-				// Values ​​for test only
-				accordionList: [
+				// Define different values ​​for identical <CompositeModals/>
+				sameModal: false,
+
+				// Test values ​​for the map
+				listSavedMaps: [
 					{
-						mapName: "Júlio dos Santos",
+						mapName: "Nome do usuário",
 						mapCreation: { date: "20/julho/2022", time: "17:34:59" },
 						lastModified: { date: "28/julho/2022", time: "17:34:59" },
 						changedBy: "O criador",
 						isAuthor: true,
 					},
 					{
-						mapName: "Alberto Anjos",
+						mapName: "Nome do usuário",
 						mapCreation: { date: "04/06/2000", time: "18:39:23" },
 						lastModified: { date: "10/dezembro/2022", time: "15:59:47" },
 						changedBy: "O usuário",
@@ -352,14 +369,15 @@
 			};
 		},
 		methods: {
-			showModal(theModal) {
+			localShowModal(theModal) {
 				document.querySelector("#modal").style.display = "flex";
-				try {
-					document
-						.querySelector(".onViewingModal")
-						.classList.remove("onViewingModal");
-				} catch (er) {}
-				document.querySelector(`.${theModal}`).classList.add("onViewingModal");
+				document.querySelector(".on_modal").classList.remove("on_modal");
+				// if you're trying to open the 'open' modal, and you don't have any maps saved
+				if(theModal == 'open_modal' && this.listSavedMaps.length <= 0)
+				theModal = 'open_no_results_modal'
+				setTimeout(() => {
+					document.querySelector(`#${theModal}`).classList.add("on_modal");
+				}, 5);
 			},
 		},
 	};

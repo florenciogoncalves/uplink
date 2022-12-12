@@ -399,7 +399,6 @@ button {
   border: 1px solid #949596;
   box-sizing: border-box;
   border-radius: 4px;
-  overflow: hidden;
 }
 .search_field > * {
   height: 100%;
@@ -408,11 +407,15 @@ button {
   border: none;
   padding: 10px 15px;
   box-sizing: border-box;
-  background: #F2F2F2;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
   outline: none;
+  background: #F2F2F2;
 }
 .search_field .search {
   border-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
   background-image: url(./../images/Icons/search-white.svg);
   background-color: #CAC9C9;
 }
@@ -508,6 +511,7 @@ button {
   height: 60px;
   display: block;
   margin: auto;
+  margin-top: 18px;
   background: url(./../images/fox-cabeca.svg) no-repeat center;
   background-size: contain;
 }
@@ -524,6 +528,9 @@ button {
 #modal > * .h4 {
   color: #EB7223;
   text-align: center;
+}
+#modal > *:not(.composite_modal) .h4 {
+  margin-top: 8px;
 }
 #modal > *:not(.modal_body) h4 {
   width: 100%;
@@ -562,11 +569,15 @@ button {
 }
 #modal > * .modal_subtitle {
   text-align: start;
-  width: 480px;
+  width: 100%;
   color: #595959;
 }
-#modal > *:not(#fonts_modal) .modal_subtitle {
-  margin: 16px 0 8px;
+#modal > *:not(#fonts_modal) .modal_subtitle:not(.modal_description) {
+  padding: 16px 8px 8px;
+  box-sizing: border-box;
+}
+#modal #add_modal .modal_subtitle {
+  margin-bottom: 24px;
 }
 #modal .on_modal.composite_modal {
   display: grid !important;
@@ -577,6 +588,11 @@ button {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
+}
+#modal .on_modal.composite_modal#open_modal .modal_subtitle:not(.modal_description) {
+  max-width: 480px;
+  padding-left: 0;
+  padding-right: 0;
 }
 #modal .on_modal.composite_modal h4 {
   height: 100%;
@@ -700,8 +716,10 @@ body {
 }
 
 .consult_data_list {
-  background: url(./../images/Icons/expand_more.svg) no-repeat center !important;
+  padding-right: 40px;
+  background: url(./../images/Icons/expand_more.svg) no-repeat !important;
   background-size: 24px 24px;
+  background-position: center right 8px !important;
 }
 
 /*
@@ -844,6 +862,19 @@ body {
 .entity .entity_legend * {
   color: #5E5E5E;
 }
+.entity.highlight .knot {
+  background-color: #3BB8B0;
+}
+.entity.no_highlight .knot {
+  background-color: #CAC9C9;
+}
+.entity.no_highlight .entity_legend * {
+  color: #CAC9C9;
+}
+.entity.finded .knot {
+  background-color: #8C2F9E;
+}
+
 /*
 *******************************
 ***				Modals.vue				***
@@ -854,6 +885,8 @@ body {
 }
 
 .modal_description {
+  margin-left: auto !important;
+  margin-right: auto !important;
   text-align: center !important;
   margin-top: 8px;
 }
@@ -873,6 +906,9 @@ body {
 .accordion-item {
   background: #fff;
   border: 1px solid #949596;
+}
+.accordion-item.change_border_color {
+  border-color: #EB7223;
 }
 .accordion-item * {
   color: #5E5E5E;
@@ -908,7 +944,6 @@ body {
   width: 24px;
   height: 24px;
   position: absolute;
-  filter: fill(#949596);
   background: url(./../images/Icons/expand_more.svg) no-repeat center;
 }
 .accordion-item .accordion-button:not(.collapsed) {

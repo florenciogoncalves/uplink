@@ -38,7 +38,7 @@
 
 <script>
 	export default {
-		name: "Consult",
+		name: "PersonSearchField",
 		props: {
 			btnRedirect: Boolean,
 		},

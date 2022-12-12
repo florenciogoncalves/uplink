@@ -36,8 +36,9 @@
 					document.addEventListener("click", closeDropdown);
 
 					function closeDropdown(evt) {
-						if (!el.$el.contains(evt.target)) {
+						if (!el.$el.contains(evt.target) && !document.querySelector('#modal').contains(evt.target)) {
 							el.isDropdownShow = false;
+							document.removeEventListener('click', closeDropdown)
 						}
 					}
 				}

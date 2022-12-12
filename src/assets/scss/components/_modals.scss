@@ -30,6 +30,7 @@
 			height: 60px;
 			display: block;
 			margin: auto;
+			margin-top: 18px;
 			background: url(./../images/fox-cabeca.svg) no-repeat center;
 			background-size: contain;
 		}
@@ -49,6 +50,9 @@
 		.h4 {
 			color: $color-primary-dark;
 			text-align: center;
+		}
+		&:not(.composite_modal) .h4 {
+			margin-top: 8px;
 		}
 
 		&:not(.modal_body) h4 {
@@ -104,13 +108,18 @@
 		.modal_subtitle {
 			@extend .p-2;
 			text-align: start;
-			width: 480px;
+			width: 100%;
 			color: $font-color-medium;
 		}
 
-		&:not(#fonts_modal) .modal_subtitle {
-			margin: 16px 0 8px;
+		&:not(#fonts_modal) .modal_subtitle:not(.modal_description) {
+			padding: 16px 8px 8px;
+			box-sizing: border-box;
 		}
+	}
+
+	#add_modal .modal_subtitle {
+		margin-bottom: 24px;
 	}
 
 	/* More complex modals */
@@ -123,6 +132,12 @@
 		padding-left: 0;
 		padding-right: 0;
 		padding-top: 0;
+
+	&#open_modal .modal_subtitle:not(.modal_description) {
+		max-width: 480px;
+		padding-left: 0;
+		padding-right: 0;
+	}
 
 		h4 {
 			height: 100%;
@@ -190,7 +205,8 @@
 
 	.buttons_container {
 		margin-right: 0;
-	button:first-of-type {
-	content: "Cancelar" !important;}
+		button:first-of-type {
+			content: "Cancelar" !important;
+		}
 	}
 }

@@ -37,8 +37,9 @@
 						:isBtnDisabled="!expandBtnOptions"
 						>Salvar</DropItem
 					>
+					<!-- the following event returns to the App component -->
 					<DropItem @click="$emit('showModal', 'open_modal')">Abrir</DropItem>
-					<DropItem>Excluir</DropItem>
+					<DropItem @click="$emit('showModal', 'open_modal', true)">Excluir</DropItem>
 				</DropdownArea>
 
 				<fieldset id="extra_options" v-show="expandBtnOptions">
@@ -81,7 +82,7 @@
 <script>
 	import DropdownArea from "./dropdown/DropdownArea.vue";
 	import DropItem from "./dropdown/DropItem.vue";
-	import Consult from "./Consult.vue";
+	import PersonSearchField from "./PersonSearchField.vue";
 
 	export default {
 		name: "HeaderApp",
@@ -94,7 +95,7 @@
 		components: {
 			DropdownArea,
 			DropItem,
-			Consult,
+			PersonSearchField,
 		},
 		props: {
 			expandBtnOptions: Boolean,

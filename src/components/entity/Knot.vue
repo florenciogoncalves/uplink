@@ -16,7 +16,8 @@
 		props: {
 			entityType: String,
 			entityName: String,
-      entityIcons: String
+      entityIcons: String,
+			highlight: Boolean,
 		},
 	};
 </script>

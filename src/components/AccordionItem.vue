@@ -1,5 +1,5 @@
 <template>
-	<div class="accordion-item">
+	<div class="accordion-item" :ref="`item_${id}`">
 		<h2 class="accordion-header" :id="'accordion_item_' + id">
 			<button
 				class="accordion-button collapsed small"
@@ -51,9 +51,25 @@
 		},
 		methods: {
 			callShowModal(el) {
-				console.log("Oiii");
 				this.$emit("showModal", el);
 			},
+		},
+		mounted() {
+			// Set border color for dropped element
+			const item = this.$refs[`item_${this.id}`];
+			item.querySelector("h2 > button").addEventListener("click", () => {
+				setTimeout(() => {
+					try {
+						document
+							.querySelector(".change_border_color")
+							.classList.remove("change_border_color");
+					} catch (error) {}
+					if (item.querySelector(".show"))
+						item.classList.add("change_border_color");
+					else item.classList.remove("change_border_color");
+				}, 5);
+			});
+			/*.parentElement.parentElement.style.display = 'none'*/
 		},
 	};
 </script>

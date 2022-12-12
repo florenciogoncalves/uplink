@@ -5,15 +5,15 @@
 			<p class="p">
 				Consulte por pessoa física ou jurídica para gerar um mapa relacional
 			</p>
-			<Consult />
+			<PersonSearchField />
 		</div>
 	</div>
 </template>
 
 <script>
-	import Consult from "../Consult.vue";
+	import PersonSearchField from "../PersonSearchField.vue";
 	export default {
-		components: { Consult },
+		components: { PersonSearchField },
 		name: "HomePage",
 		mounted() {
 			this.$emit("onResult", false);

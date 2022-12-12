@@ -18,15 +18,15 @@ body {
 	outline: none;
 }
 
-// Consult.vue
+// PersonSearchField.vue
 .p_fj_container {
 	gap: 8px;
 }
 
 // Interative area
 .interative_area {
-		display: flex;
-	}
+	display: flex;
+}
 
 // Scroll Bar
 *::-webkit-scrollbar {
@@ -44,48 +44,51 @@ body {
 	appearance: none;
 }
 #container_home_page {
-		z-index: 1;
-		padding: 8px 24px;
-		box-shadow: $shadow-2;
+	z-index: 1;
+	padding: 8px 24px;
+	box-shadow: $shadow-2;
 
-		background: url(./../../assets/images/fox-dashing.svg) no-repeat bottom 25px
-				right 3.5rem,
-			url(./../../assets/images/bg-home-page.svg) no-repeat bottom right;
-		background-size: 50%;
-		background-attachment: fixed;
+	background: url(./../../assets/images/fox-dashing.svg) no-repeat bottom 25px
+			right 3.5rem,
+		url(./../../assets/images/bg-home-page.svg) no-repeat bottom right;
+	background-size: 50%;
+	background-attachment: fixed;
 
-		& .container {
-			margin-top: 20vh;
-			margin-left: 3vw;
+	& .container {
+		margin-top: 20vh;
+		margin-left: 3vw;
 
-			h2 {
-				font-weight: 400;
-				line-height: 150%;
-			}
-
-			.interative_area {
-				display: flex;
-				margin-top: 25px;
-			}
-
-			.interative_area > div {
-				display: flex;
-			}
+		h2 {
+			font-weight: 400;
+			line-height: 150%;
 		}
-		@media only screen and (max-width: 576px) {
-			& {
-				background-size: 85vw;
-			}
 
-			& .container {
-				margin-top: 10vh;
-			}
+		.interative_area {
+			display: flex;
+			margin-top: 25px;
+		}
+
+		.interative_area > div {
+			display: flex;
 		}
 	}
+	@media only screen and (max-width: 576px) {
+		& {
+			background-size: 85vw;
+		}
+
+		& .container {
+			margin-top: 10vh;
+		}
+	}
+}
 // Datalist
 .consult_data_list {
-	background: url(./../images/Icons/#{$expand_more_icon}.svg) no-repeat center !important;
+	padding-right: 40px;
+
+	background: url(./../images/Icons/#{$expand_more_icon}.svg) no-repeat !important;
 	background-size: 24px 24px;
+	background-position: center right 8px !important;
 }
 
 /*
@@ -153,55 +156,50 @@ body {
 	background: none;
 }
 
-
-
 /*
 *****************************
 *** 			HomePage  			***
 *****************************
 */
 #container_home_page {
-		z-index: 1;
-		padding: 8px 24px;
-		box-shadow: $shadow-2;
+	z-index: 1;
+	padding: 8px 24px;
+	box-shadow: $shadow-2;
 
-		background: url(./../../assets/images/fox-dashing.svg) no-repeat bottom 25px
-				right 3.5rem,
-			url(./../../assets/images/bg-home-page.svg) no-repeat bottom right;
-		background-size: 50%;
-		background-attachment: fixed;
+	background: url(./../../assets/images/fox-dashing.svg) no-repeat bottom 25px
+			right 3.5rem,
+		url(./../../assets/images/bg-home-page.svg) no-repeat bottom right;
+	background-size: 50%;
+	background-attachment: fixed;
 
-		& .container {
-			margin-top: 20vh;
-			margin-left: 3vw;
+	& .container {
+		margin-top: 20vh;
+		margin-left: 3vw;
 
-			h2 {
-				font-weight: 400;
-				line-height: 150%;
-			}
-
-			.interative_area {
-				display: flex;
-				margin-top: 25px;
-			}
-
-			.interative_area > div {
-				display: flex;
-			}
+		h2 {
+			font-weight: 400;
+			line-height: 150%;
 		}
-		@media only screen and (max-width: 576px) {
-			& {
-				background-size: 85vw;
-			}
 
-			& .container {
-				margin-top: 10vh;
-			}
+		.interative_area {
+			display: flex;
+			margin-top: 25px;
+		}
+
+		.interative_area > div {
+			display: flex;
 		}
 	}
+	@media only screen and (max-width: 576px) {
+		& {
+			background-size: 85vw;
+		}
 
-
-
+		& .container {
+			margin-top: 10vh;
+		}
+	}
+}
 
 /*
 *****************************
@@ -232,7 +230,9 @@ body {
 	.knot {
 		width: 32px;
 		height: 32px;
+		//
 		background-color: $color-default;
+		// In hover
 		&:hover {
 			background-color: $color-default-hover;
 		}
@@ -255,6 +255,29 @@ body {
 		}
 		color: $color-neutral-black-medium;
 	}
+
+	// For the highlighted nodes
+	&.highlight {
+		.knot {
+			background-color: $color-highlight;
+		}
+	}
+
+	// For nodes not highlighted, but with highlight on
+	&.no_highlight {
+		.knot {
+			background-color: $color-neutral-white-dark;
+		}
+		.entity_legend * {
+			color: $color-neutral-white-dark;
+		}
+	}
+
+	&.finded {
+		.knot {
+			background-color: $color-purple;
+		}
+	}
 }
 /*
 *******************************
@@ -267,6 +290,8 @@ body {
 
 // Confirm modal
 .modal_description {
+	margin-left: auto !important;
+	margin-right: auto !important;
 	text-align: center !important;
 	margin-top: 8px;
 }
@@ -284,14 +309,18 @@ body {
 }
 
 .accordion-item {
+	background: #fff;
+	border: $border;
+	&.change_border_color{
+		border-color: $color-primary-dark;
+	}
 	& * {
 		color: $color-neutral-black-medium;
 	}
 	&:last-of-type {
 		border-radius: $small-border;
 	}
-	background: #fff;
-	border: $border;
+
 	&:first-of-type {
 		border-radius: $small-border;
 	}
@@ -324,7 +353,6 @@ body {
 			width: 24px;
 			height: 24px;
 			position: absolute;
-			filter: fill($color-neutral-black-light);
 
 			background: url(./../images/Icons/#{$expand_more_icon}.svg) no-repeat
 				center;

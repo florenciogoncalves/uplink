@@ -5,7 +5,7 @@
 			<button class="close_modal can_close_modal"></button>
 		</header>
 		<div class="composite_modal_slot">
-			<p class="modal_subtitle modal_description">{{ modalSubtitle }}</p>
+			<p class="modal_subtitle modal_description" v-html="modalSubtitle"></p>
 			<slot></slot>
 		</div>
 	</div>

@@ -7,10 +7,9 @@
 
 <script>
 	import MapSwitches from "../MapSwitches.vue";
-try {
-    window.vis = require('vis-network/standalone');
-} catch (e) {
-}
+	try {
+		window.vis = require("vis-network/standalone");
+	} catch (e) {}
 	export default {
 		name: "ResultsPage",
 		components: {
@@ -40,10 +39,34 @@ try {
 				},
 			};
 		},
+		beforeMount() {},
 		mounted() {
 			this.$emit("onResult", true);
 
-			// VisJs
+			/*
+			 ***************************************************
+			 ***			 Demontration of no results modal 			***
+			 ***************************************************
+			 */
+			if (this.network.nodes.length <= 0) {
+				let router = this.$router;
+				try {
+					document.querySelector(".on_modal").classList.toggle("on_modal");
+				} catch (error) {}
+				document.querySelector("#modal").style.display = "flex";
+				document.querySelector(`#no_results_modal`).classList.add("on_modal");
+				document
+					.querySelector("#no_results_modal .can_close_modal")
+					.addEventListener("click", () => {
+						router.go(-1);
+					});
+			}
+
+			/*
+			 *************************
+			 *** 			VisJs 			***
+			 *************************
+			 */
 			// Create an array with nodes
 			let nodes = new vis.DataSet(this.network.nodes);
 
@@ -58,12 +81,29 @@ try {
 			};
 			var options = {
 				locale: "pt",
+				nodes: {},
+				edges: {
+					smooth: false,
+				},
+				physics: {
+					// forceAtlas2Based: {
+					// 	springLength: 100,
+					// },
+					hierarchicalRepulsion: {
+						centralGravity: 0,
+					},
+					maxVelocity: 150,
+					minVelocity: 2,
+					solver: "forceAtlas2Based",
+				},
+				// Hierárquico
+				// layout: {
+				// 	hierarchical: {
+				// 		enabled: true,
+				// 	},
+				// },
 			};
 			let network = new vis.Network(container, data, options);
-
-			// To destroy the network
-			// setTimeout(() => {network.destroy()
-			// },3000)
 		},
 	};
 </script>

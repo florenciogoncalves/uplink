@@ -142,7 +142,6 @@
 	border: $border;
 	box-sizing: border-box;
 	border-radius: $small-border;
-	overflow: hidden;
 
 	& > * {
 		height: 100%;
@@ -151,12 +150,18 @@
 		border: none;
 		padding: 10px 15px;
 		box-sizing: border-box;
-		background: $color-neutral-white-medium;
+		border-bottom-left-radius: $small-border;
+		border-top-left-radius: $small-border;
 		outline: none;
+
+		background: $color-neutral-white-medium;
 	}
 
 	.search {
 		border-radius: 0;
+		border-bottom-right-radius: calc($small-border - 1px);
+		border-top-right-radius: calc($small-border - 1px);
+
 		background-image: url(./../images/Icons/search-white.svg);
 		background-color: $color-neutral-white-dark;
 	}
