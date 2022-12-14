@@ -5,7 +5,7 @@
 		:expandBtnOptions="showMoreBtns"
 		@showModal="callShowModal"></HeaderApp>
 	<RouterView @onResult="onResult" @showModal="callShowModal" />
-	<Modals></Modals>
+	<Modals ref="modals"></Modals>
 </template>
 
 <script>
@@ -36,12 +36,13 @@
 					this.showMoreBtns = false;
 				}
 			},
-			callShowModal(modal) {
-				try {
-					document.querySelector(".on_modal").classList.toggle("on_modal");
-				} catch (error) {}
-				document.querySelector("#modal").style.display = "flex";
-				document.querySelector(`#${modal}`).classList.add("on_modal");
+			callShowModal(modal, sameModal) {
+			this.$refs.modals.localShowModal(modal, sameModal)
+				// try {
+				// 	document.querySelector(".on_modal").classList.toggle("on_modal");
+				// } catch (error) {}
+				// document.querySelector("#modal").style.display = "flex";
+				// document.querySelector(`#${modal}`).classList.add("on_modal");
 			},
 		},
 	};

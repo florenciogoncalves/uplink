@@ -10,7 +10,9 @@
 		<AlertModal
 			id="sucess_delete_modal"
 			:modalTitle="'Excluir'"
-			:modalSubtitle="'O mapa foi excluído com sucesso!<br>Lembre-se que o mapa foi excluído apenas do arquivo no upLink.'" />
+			:modalSubtitle="'O mapa foi excluído com sucesso!<br>Lembre-se que o mapa foi excluído apenas do arquivo no upLink.'"
+			:btnFunction="true"
+			@btnDoes="localShowModal('open_modal')" />
 
 		<!-- Save -->
 		<AlertModal
@@ -23,7 +25,9 @@
 			id="back_to_upminer_modal"
 			:modalTitle="'Voltar ao UpMiner'"
 			:modalSubtitle="'Tem certeza que deseja sair do upLink e voltar ao upMiner?'"
-			:btnNoDisabled="true" />
+			:btnNoDisabled="true"
+			:btnYesFunction="true"
+			@btnYesDoes="checkAutosave" />
 
 		<!-- Autosave on load -->
 		<ConfirmModal
@@ -260,10 +264,17 @@
 		<!-- Open modal - no results -->
 		<CompositeModal
 			id="open_no_results_modal"
-			:modalTitle="'Abrir'"
-			:modalSubtitle="'Ao abrir um mapa salvo anteriormente, as informações<br>podem estar desatualizadas'">
+			:modalTitle="this.sameModal == true ? 'Excluir' : 'Abrir'"
+			:modalSubtitle="
+				this.sameModal == true
+					? 'Você só poderá excluir os mapas dos quais tiver autoria.'
+					: 'Ao abrir um mapa salvo anteriormente, as informações<br>podem estar desatualizadas'
+			">
 			<h5 class="modal_subtitle">Pessoa usuária</h5>
-			<input type="text" class="input_text" />
+			<input
+				class="input_text consult_data_list"
+				type="text"
+				placeholder="Nome do usuário" />
 			<h5 class="modal_subtitle">Mapas</h5>
 			<p class="modal_text">
 				A pessoa selecionada ainda não possui nenhum mapa salvo no upLink.
@@ -273,10 +284,11 @@
 		<!-- Open modal -->
 		<CompositeModal
 			id="open_modal"
-			:modalTitle="sameModal == true ? 'Excluir' : 'Abrir'"
+			:modalTitle="this.sameModal == true ? 'Excluir' : 'Abrir'"
 			:modalSubtitle="
-				'Ao abrir um mapa salvo anteriormente, as informações<br>podem estar desatualizadas' +
-				sameModal
+				this.sameModal == true
+					? 'Você só poderá excluir os mapas dos quais tiver autoria.'
+					: 'Ao abrir um mapa salvo anteriormente, as informações<br>podem estar desatualizadas'
 			">
 			<h5 class="modal_subtitle">Pessoa usuária</h5>
 			<input
@@ -347,7 +359,7 @@
 		data() {
 			return {
 				// Define different values ​​for identical <CompositeModals/>
-				sameModal: false,
+				sameModal: true,
 
 				// Test values ​​for the map
 				listSavedMaps: [
@@ -369,16 +381,40 @@
 			};
 		},
 		methods: {
-			localShowModal(theModal) {
+			localShowModal(theModal, sameModal = false) {
 				document.querySelector("#modal").style.display = "flex";
-				document.querySelector(".on_modal").classList.remove("on_modal");
+				try {
+					document.querySelector(".on_modal").classList.remove("on_modal");
+				} catch (error) {}
 				// if you're trying to open the 'open' modal, and you don't have any maps saved
-				if(theModal == 'open_modal' && this.listSavedMaps.length <= 0)
-				theModal = 'open_no_results_modal'
+				if (theModal == "open_modal" && this.listSavedMaps.length <= 0)
+					theModal = "open_no_results_modal";
 				setTimeout(() => {
 					document.querySelector(`#${theModal}`).classList.add("on_modal");
 				}, 5);
+				if (sameModal) {
+					this.sameModal = true;
+				} else this.sameModal = false;
 			},
+			checkAutosave() {
+				if (sessionStorage.autoSave == "ativado")
+					this.localShowModal("onload_autosave_modal");
+				else
+					this.closeModal()
+			},
+			closeModal() {
+				document.querySelector(".on_modal").classList.remove("on_modal");
+				document.querySelector("#modal").style.display = "none";
+			},
+		},
+		mounted() {
+			// All buttons that can close the modal
+			document.querySelectorAll(".can_close_modal").forEach((btn) => {
+				btn.addEventListener("click", () => {
+					document.querySelector(".on_modal").classList.remove("on_modal");
+					document.querySelector("#modal").style.display = "none";
+				});
+			});
 		},
 	};
 </script>

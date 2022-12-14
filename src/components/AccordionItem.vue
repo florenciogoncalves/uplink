@@ -8,8 +8,11 @@
 				:data-bs-target="'#collapse_' + id"
 				aria-expanded="false"
 				:aria-controls="'collapse_' + id">
-				{{ mapName }}
-				<MapEditBtns :isAuthor="isAuthor" @showModal="callShowModal" />
+				<input type="text" :value="mapName" ref="mapName" disabled />
+				<MapEditBtns
+					:isAuthor="isAuthor"
+					@showModal="callShowModal"
+					@editMapName="editMapName" />
 			</button>
 		</h2>
 		<div
@@ -52,6 +55,22 @@
 		methods: {
 			callShowModal(el) {
 				this.$emit("showModal", el);
+			},
+			// On change name button click
+			editMapName() {
+				const input = this.$refs.mapName;
+				let saveValue = input.value;
+				input.removeAttribute("disabled");
+				input.focus();
+				function enterCase(evt) {
+					if (evt.key === "Enter") {
+						input.blur();
+						input.setAttribute("disabled", true);
+						if (input.value.length <= 1)
+							input.value = saveValue;
+					}
+				}
+				input.addEventListener("keydown", enterCase);
 			},
 		},
 		mounted() {

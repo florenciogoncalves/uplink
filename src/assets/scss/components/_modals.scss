@@ -133,10 +133,25 @@
 		padding-right: 0;
 		padding-top: 0;
 
-	&#open_modal .modal_subtitle:not(.modal_description) {
+	&#open_modal .modal_subtitle:not(.modal_description),
+	&#open_no_results_modal .modal_subtitle:not(.modal_description) {
 		max-width: 480px;
 		padding-left: 0;
 		padding-right: 0;
+	}
+
+	&#open_no_results_modal {
+	height: 288px;
+	.composite_modal_slot {
+		padding-top: 0;
+	}
+	.modal_description {
+		margin-top: 18px;
+		margin-bottom: 0;
+	}
+	.modal_text{
+		max-width: 480px;
+		font-size: 14px;}
 	}
 
 		h4 {

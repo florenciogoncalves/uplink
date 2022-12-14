@@ -3,17 +3,133 @@
 	position: relative;
 }
 
-.empty_button.help
-{
+.empty_button.help {
 	margin-right: 0;
 }
 
-.dropdown
-{
+.dropdown {
 	@include mix_dropdown();
 }
 
-.dropdown_area.to_right .dropdown{
+.dropdown_area.to_right .dropdown {
 	right: 0;
 	left: auto;
+}
+
+.dropdown_history {
+	width: max-content;
+	min-width: 170px;
+	padding: 24px;
+	filter: drop-shadow($history-shadow $history-background-color);
+	border-radius: $medium-border;
+
+	background-color: $color-neutral-white-pure;
+
+	h2.p-2 {
+		color: $color-neutral-black-medium;
+	}
+}
+
+.dropdown_history,
+.dropdown_subtitles {
+	.dropdown_information_container {
+		display: flex;
+		flex-direction: column;
+
+		.history_item {
+			@extend .p;
+			position: relative;
+			padding: 8px;
+			padding-left: 16px;
+
+			color: $color-neutral-black-medium;
+
+			&::before {
+				content: " ";
+				width: 0.5px;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: $color-primary-dark;
+			}
+			&:last-of-type,
+			&:first-of-type {
+				&::before {
+					height: 50%;
+				}
+			}
+
+			&:first-of-type {
+				&::before {
+					top: auto;
+					bottom: 0;
+				}
+			}
+
+			&::after {
+				content: "";
+				width: 4.5px;
+				height: 4.5px;
+				border-radius: 50%;
+				position: absolute;
+				left: -2px;
+				top: 50%;
+				transform: translateY(-50%);
+
+				background-color: $color-primary-dark;
+			}
+		}
+	}
+}
+
+.dropdown_subtitles {
+	bottom: 0;
+	top: auto;
+	left: calc(100% + 8px) !important;
+	right: auto;
+	width: 375px;
+	height: max-content;
+	max-height: 75vh;
+	z-index: 99;
+	box-sizing: border-box;
+	padding: 8px;
+	padding-left: 24px;
+	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+	opacity: .9;overflow-y: scroll !important;
+	.align_legend_items {
+	
+		.history_item {
+			display: grid !important;
+			grid-template-columns: max-content 1fr;
+			gap: 8px !important;
+			flex-direction: row;
+			&:not(:last-of-type)::after {
+				content: none;
+			}
+
+			.subtitles_text {
+				@extend .p;
+				font-size: 14px !important;
+				line-height: 150% !important;
+			}
+		}
+	}
+
+	.knot {
+	position: relative;
+	max-height: max-content;
+		&::before {
+			content: '' !important;
+			width: 4.5px !important;
+			height: 4.5px !important;
+			position: absolute !important;
+			left: -18px !important;
+			top: 50% !important;
+			transform: translateY(-50%) !important;
+			border-radius: 50% !important;
+
+			background-color: $color-primary-dark !important;
+		}
+	}
 }

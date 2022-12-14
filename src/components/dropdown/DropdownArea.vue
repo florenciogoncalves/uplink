@@ -1,8 +1,10 @@
 <template>
 	<div class="dropdown_area">
 		<DropdownButton
-			:title="btnTitle"
+			:setBtnTitle="btnTitle"
 			:class="btnClass"
+			:id="btnId"
+			:tooltipSide="setTooltipSide"
 			@click="toggle_dropdown($event)"></DropdownButton>
 		<Dropdown :class="'dropdown_' + btnClass" v-show="isDropdownShow">
 			<slot></slot>
@@ -27,6 +29,8 @@
 		props: {
 			btnClass: String,
 			btnTitle: String,
+			btnId: String,
+			setTooltipSide: String
 		},
 		methods: {
 			toggle_dropdown(e) {

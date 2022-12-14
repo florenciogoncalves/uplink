@@ -79,7 +79,7 @@ button {
 		gap: 4px;
 	}
 
-	button {
+	button:not(.knot) {
 		width: 32px;
 		height: 32px;
 		background: none no-repeat;
