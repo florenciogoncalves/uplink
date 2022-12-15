@@ -1,3 +1,4 @@
+@import "colors";
 /* Borders*/
 $small-border: 4px;
 $medium-border: 8px;
@@ -10,4 +11,8 @@ $shadow-3: 0px 1px 6px rgba(0, 0, 0, 0.25);
 
 $button-shadow: 0px 2px 4px rgba(51, 51, 51, 0.25);
 
+$tooltip-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+$history-shadow: 0px 1px 10px;
 $modal-header-shadow: 0px 0px 5.33172px rgba(0, 0, 0, 0.5);
+
+$border: 1px solid $color-neutral-black-light;

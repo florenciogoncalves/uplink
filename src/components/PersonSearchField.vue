@@ -1,6 +1,6 @@
 <template>
 	<form class="interative_area" novalidate>
-		<div>
+		<div class="p_fj_container">
 			<input
 				type="radio"
 				name="criteria"
@@ -14,18 +14,23 @@
 		</div>
 		<fieldset class="search_field" ref="searchField">
 			<input
-			ref="searchInput"
+				ref="searchInput"
 				type="text"
 				disabled
 				placeholder="Selecione um critério" />
 
-			<button v-if="btnRedirect" class="input_button search" ref="searchBtn" type="button"></button>
+			<button
+				v-if="btnRedirect"
+				class="input_button search"
+				ref="searchBtn"
+				type="button"></button>
 
 			<button
 				v-else
 				class="input_button search"
 				ref="searchBtn"
-				disabled type="button"
+				disabled
+				type="button"
 				@click="$router.push('/results')"></button>
 		</fieldset>
 	</form>
@@ -33,7 +38,7 @@
 
 <script>
 	export default {
-		name: "Consult",
+		name: "PersonSearchField",
 		props: {
 			btnRedirect: Boolean,
 		},
@@ -41,7 +46,7 @@
 			let pf = this.$refs.btnPf;
 			let pj = this.$refs.btnPj;
 			let fieldset = this.$refs.searchField;
-			let input = this.$refs.searchInput
+			let input = this.$refs.searchInput;
 			let button = this.$refs.searchBtn;
 
 			pf.addEventListener("click", () => {
@@ -51,9 +56,8 @@
 					fieldset.classList.toggle("actived");
 				try {
 					input.removeAttribute("disabled");
-					button.removeAttribute('disabled')
-				} catch (error) {
-				}
+					button.removeAttribute("disabled");
+				} catch (error) {}
 				input.value = "";
 				input.blur();
 				input.setAttribute("placeholder", "Digite o CPF ou o Nome Completo");
@@ -66,9 +70,8 @@
 					fieldset.classList.toggle("actived");
 				try {
 					input.removeAttribute("disabled");
-					button.removeAttribute('disabled')
-				} catch (error) {
-				}
+					button.removeAttribute("disabled");
+				} catch (error) {}
 				input.value = "";
 				input.blur();
 				input.setAttribute("placeholder", "Digite o CNPJ ou a Razão Social");
@@ -93,5 +96,4 @@
 			});
 		},
 	};
-
 </script>

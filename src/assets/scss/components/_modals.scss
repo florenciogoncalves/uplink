@@ -10,10 +10,11 @@
 
 		background: $color-neutral-white-pure;
 
-// Visualize modal with a class
+		// Visualize modal with a class
 
-	&.on_modal {
-	display: block;}
+		&.on_modal {
+			display: block;
+		}
 
 		&#fonts_modal {
 			width: 800px;
@@ -29,6 +30,7 @@
 			height: 60px;
 			display: block;
 			margin: auto;
+			margin-top: 18px;
 			background: url(./../images/fox-cabeca.svg) no-repeat center;
 			background-size: contain;
 		}
@@ -49,6 +51,9 @@
 			color: $color-primary-dark;
 			text-align: center;
 		}
+		&:not(.composite_modal) .h4 {
+			margin-top: 8px;
+		}
 
 		&:not(.modal_body) h4 {
 			width: 100%;
@@ -58,7 +63,7 @@
 			text-align: center;
 		}
 
-		.buttons-container {
+		.buttons_container {
 			margin: 18px auto;
 			display: grid;
 			grid-template-columns: auto auto;
@@ -103,8 +108,18 @@
 		.modal_subtitle {
 			@extend .p-2;
 			text-align: start;
+			width: 100%;
 			color: $font-color-medium;
 		}
+
+		&:not(#fonts_modal) .modal_subtitle:not(.modal_description) {
+			padding: 16px 8px 8px;
+			box-sizing: border-box;
+		}
+	}
+
+	#add_modal .modal_subtitle {
+		margin-bottom: 24px;
 	}
 
 	/* More complex modals */
@@ -117,6 +132,28 @@
 		padding-left: 0;
 		padding-right: 0;
 		padding-top: 0;
+
+		&#open_modal .modal_subtitle:not(.modal_description),
+		&#open_no_results_modal .modal_subtitle:not(.modal_description) {
+			max-width: 480px;
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		&#open_no_results_modal {
+			height: 288px;
+			.composite_modal_slot {
+				padding-top: 0;
+			}
+			.modal_description {
+				margin-top: 18px;
+				margin-bottom: 0;
+			}
+			.modal_text {
+				max-width: 480px;
+				font-size: 14px;
+			}
+		}
 
 		h4 {
 			height: 100%;
@@ -170,7 +207,189 @@
 	display: none;
 	align-items: center;
 	justify-content: center;
-	z-index: 10;
+	z-index: 9999;
 
 	background: rgba(0, 0, 0, 0.5);
+
+	// CPF query modal
+	#cpf_query_modal {
+		width: 800px;
+		max-height: 533px;
+		height: 100%;
+
+		color: $font-color-medium;
+
+		.composite_modal_slot {
+			padding: 40px;
+			overflow: hidden;
+		}
+
+		.cpf_query_btns {
+			display: flex;
+			flex-direction: row;
+			margin-left: auto;
+			margin-right: 0;
+			gap: 8px;
+
+			button {
+				margin: 0;
+			}
+		}
+
+		h1 {
+			margin-left: 0;
+			margin-right: auto;
+			@extend .p-2;
+
+			font-weight: 700;
+
+			&:nth-of-type(2) {
+				margin-bottom: 24px;
+			}
+		}
+
+		hr {
+			width: 100%;
+			border: 1px solid $border-text-color;
+			margin: 16px 0;
+		}
+
+		.content_area {
+			width: 100%;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			box-sizing: border-box;
+
+			.content_separator {
+				display: grid;
+				grid-template-rows: repeat(2, 1fr);
+				gap: 16px;
+
+				.data_title {
+					@extend .p-2;
+
+					&.text_color {
+						color: $color-primary-dark;
+						& + * {
+							font-weight: 600;
+						}
+					}
+				}
+
+				&:first-of-type .content_top .data_value {
+					text-decoration: underline;
+					font-weight: 600;
+				}
+
+				.data_value {
+					@extend .p;
+				}
+			}
+		}
+	}
+
+	#comment_modal {
+		height: 424px;
+		.composite_modal_slot {
+			align-items: flex-start;
+			padding: 20px 32px;
+
+			.modal_description {
+				margin: 0 auto;
+			}
+
+			& > h3 {
+				@extend .p-2;
+				color: $color-neutral-black-dark;
+				padding: 24px 0 16px;
+
+				&:first-of-type {
+					padding-top: 20px;
+				}
+			}
+
+			form {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+
+			textarea {
+				width: 100%;
+				height: 85px;
+				border: 1px solid #aaa;
+				border-radius: $small-border;
+				padding: 8px 16px;
+				box-sizing: border-box;
+				resize: none;
+			}
+
+			.buttons_container {
+				margin: auto 0 0 auto;
+			}
+		}
+	}
+}
+
+// Entity in comments
+.entity.in_comments {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+	.node {
+		margin: auto 0;
+	}
+}
+
+// All comments modal
+#all_comments_modal {
+	height: 480px;
+	.composite_modal_slot {
+		align-items: flex-start !important;
+		padding: 18px 52px !important;
+
+		& > h3 {
+			@extend .p-2;
+			color: $color-neutral-black-medium;
+			padding: 16px 0;
+
+			&:last-of-type {
+				padding-bottom: 8px;
+			}
+		}
+
+		h2 > button {
+			border-bottom: none !important;
+
+			textarea {
+				display: none !important;
+				overflow: hidden !important;
+				display: -webkit-box !important;
+				-webkit-line-clamp: 0 !important;
+				-webkit-box-orient: vertical !important;
+			}
+		}
+
+		.change_border_color {
+			input {
+				text-overflow: clip;
+			}
+		}
+	}
+}
+
+#save_modal {
+	#map_save_name {
+		width: 480px;
+		height: 40px;
+		border-radius: $small-border;
+	}
+
+	.buttons_container {
+		margin-right: 0;
+		button:first-of-type {
+			content: "Cancelar" !important;
+		}
+	}
 }

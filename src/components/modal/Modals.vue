@@ -4,38 +4,46 @@
 		<AlertModal
 			id="no_results_modal"
 			:modalTitle="'Não houve resultados'"
-			:modalSubtitle="'O critério consultado não retornou resultados.\nTente novamente com um documento válido.'" />
+			:modalSubtitle="'O critério consultado não retornou resultados.<br>Tente novamente com um documento válido.'" />
 
 		<!-- Sucess delete -->
 		<AlertModal
 			id="sucess_delete_modal"
 			:modalTitle="'Excluir'"
-			:modalSubtitle="'O mapa foi excluído com sucesso!\nLembre-se que o mapa foi excluído apenas do arquivo no upLink.'" />
+			:modalSubtitle="'O mapa foi excluído com sucesso!<br>Lembre-se que o mapa foi excluído apenas do arquivo no upLink.'"
+			:btnFunction="true"
+			@btnDoes="localShowModal('open_modal')" />
 
 		<!-- Save -->
 		<AlertModal
 			id="save_confirmation_modal"
 			:modalTitle="'Salvar'"
-			:modalSubtitle="'O mapa foi salvo com sucesso!\nPara visualizar, clique no botão Arquivo em seguida em Abrir.'" />
+			:modalSubtitle="'O mapa foi salvo com sucesso!<br>Para visualizar, clique no botão Arquivo em seguida em Abrir.'" />
 
 		<!-- Back to upMiner -->
 		<ConfirmModal
 			id="back_to_upminer_modal"
 			:modalTitle="'Voltar ao UpMiner'"
 			:modalSubtitle="'Tem certeza que deseja sair do upLink e voltar ao upMiner?'"
-			:btnNoDisabled="true" />
+			:btnNoDisabled="true"
+			:btnYesFunction="true"
+			@btnYesDoes="checkAutosave" />
 
 		<!-- Autosave on load -->
 		<ConfirmModal
 			id="onload_autosave_modal"
 			:modalTitle="'Salvamento automático em andamento'"
-			:modalSubtitle="'Ao sair do upLink algumas alterações poderão não ter sido salves.\nDeseja sair assim mesmo?'" />
+			:modalSubtitle="'Ao sair do upLink algumas alterações poderão não ter sido salves.<br>Deseja sair assim mesmo?'" />
 
 		<!-- Delete map -->
 		<ConfirmModal
 			id="delete_map_modal"
 			:modalTitle="'Excluir'"
-			:modalSubtitle="'Tem certeza que deseja excluir o mapa do seu arquivo no upLink?'" />
+			:modalSubtitle="'Tem certeza que deseja excluir o mapa do seu arquivo no upLink?'"
+			:btnYesFunction="true"
+			:btnNoFunction="true"
+			@btnNoDoes="localShowModal('open_modal')"
+			@btnYesDoes="localShowModal('sucess_delete_modal')" />
 
 		<!-- Fonts on upLink -->
 		<CompositeModal
@@ -241,7 +249,7 @@
 		<CompositeModal
 			id="to_locate_modal"
 			:modalTitle="'Localizar'"
-			:modalSubtitle="'Localize um nó, presente no mapa, através de critérios como\nnome, razão social, CPF ou CNPJ'">
+			:modalSubtitle="'Localize um nó, presente no mapa, através de critérios como<br>nome, razão social, CPF ou CNPJ'">
 			<ResearchField />
 		</CompositeModal>
 
@@ -249,19 +257,24 @@
 		<CompositeModal
 			id="add_modal"
 			:modalTitle="'Adicionar'"
-			:modalSubtitle="'Adicione uma nova consulta que pode ou não ter relação com seu\nmapa atual. Você pode utilizar esse recurso para conferir dados.'"
-			><Consult :btnRedirect="false" />
+			:modalSubtitle="'Adicione uma nova consulta que pode ou não ter relação com seu<br>mapa atual. Você pode utilizar esse recurso para conferir dados.'"
+			><PersonSearchField :btnRedirect="false" />
 		</CompositeModal>
 
 		<!-- Open modal - no results -->
 		<CompositeModal
 			id="open_no_results_modal"
-			:modalTitle="'Abrir'"
-			:modalSubtitle="'Ao abrir um mapa salvo anteriormente, as informações\npodem estar desatualizadas'">
+			:modalTitle="this.sameModal == true ? 'Excluir' : 'Abrir'"
+			:modalSubtitle="
+				this.sameModal == true
+					? 'Você só poderá excluir os mapas dos quais tiver autoria.'
+					: 'Ao abrir um mapa salvo anteriormente, as informações<br>podem estar desatualizadas'
+			">
 			<h5 class="modal_subtitle">Pessoa usuária</h5>
-			<select name="" id="">
-				<option value="" selected disabled>Nome da pessoa usuária</option>
-			</select>
+			<input
+				class="input_text consult_data_list"
+				type="text"
+				placeholder="Nome do usuário" />
 			<h5 class="modal_subtitle">Mapas</h5>
 			<p class="modal_text">
 				A pessoa selecionada ainda não possui nenhum mapa salvo no upLink.
@@ -271,15 +284,196 @@
 		<!-- Open modal -->
 		<CompositeModal
 			id="open_modal"
-			:modalTitle="'Abrir'"
-			:modalSubtitle="'Ao abrir um mapa salvo anteriormente, as informações\npodem estar desatualizadas'">
+			:modalTitle="this.sameModal == true ? 'Excluir' : 'Abrir'"
+			:modalSubtitle="
+				this.sameModal == true
+					? 'Você só poderá excluir os mapas dos quais tiver autoria.'
+					: 'Ao abrir um mapa salvo anteriormente, as informações<br>podem estar desatualizadas'
+			">
 			<h5 class="modal_subtitle">Pessoa usuária</h5>
-			<select name="" id="">
-				<option value="" selected disabled>Nome da pessoa usuária</option>
-			</select>
+			<input
+				class="input_text consult_data_list"
+				type="text"
+				placeholder="Nome do usuário" />
 			<h5 class="modal_subtitle">Mapas</h5>
-			<div class="open_modal_maps">
-			
+			<div class="open_modal_maps accordion" id="openAccordion">
+				<AccordionItem
+					accordionContainer="openAccordion"
+					v-for="(item, index) in listSavedMaps"
+					:key="index"
+					:mapName="listSavedMaps[index].mapName"
+					:id="index"
+					:mapCreation="{
+						date: listSavedMaps[index].mapCreation.date,
+						time: listSavedMaps[index].mapCreation.time,
+					}"
+					:lastModified="{
+						date: listSavedMaps[index].lastModified.date,
+						time: listSavedMaps[index].lastModified.time,
+					}"
+					:changedBy="listSavedMaps[index].changedBy"
+					:isAuthor="listSavedMaps[index].isAuthor"
+					@showModal="localShowModal" />
+			</div>
+		</CompositeModal>
+
+		<!-- Save modal -->
+		<CompositeModal
+			id="save_modal"
+			:modalTitle="'Salvar'"
+			:modalSubtitle="'Digite um nome para salvar o mapa atual'">
+			<input
+				class="input_text"
+				type="text"
+				placeholder="Meu mapa"
+				id="map_save_name" />
+			<div class="buttons_container">
+				<button class="button_text can_close_modal">Cancelar</button>
+				<button
+					class="button_primary"
+					@click="localShowModal('save_confirmation_modal')">
+					Salvar
+				</button>
+			</div>
+		</CompositeModal>
+
+		<!-- CPF query -->
+		<CompositeModal id="cpf_query_modal" modalTitle="Consulta ao CPF - upLexis">
+			<div class="cpf_query_btns">
+				<button class="empty_button file_upload_2"></button>
+				<button class="empty_button print"></button>
+			</div>
+			<h1>Dados Cadastrais - Título do bloco</h1>
+			<hr />
+			<div class="content_area">
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title text_color">CPF</h3>
+						<span class="data_value">333.663.993-99</span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Situação</h3>
+						<span class="data_value">Regular</span>
+					</div>
+				</div>
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title text_color">Nome</h3>
+						<span class="data_value">Joanne Angelina Germano</span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Data da consulta</h3>
+						<span class="data_value">05/11/2022</span>
+					</div>
+				</div>
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title">Data de Nascimento</h3>
+						<span class="data_value">05/04/1976</span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Cidade/Estado</h3>
+						<span class="data_value">Curitiba - PR</span>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<h1>Participação Societária</h1>
+			<div class="content_area">
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title">CNPJ</h3>
+						<span class="data_value">11.111.991/0001-11</span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Entrada</h3>
+						<span class="data_value">07/01/2021</span>
+					</div>
+				</div>
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title">Razão Social</h3>
+						<span class="data_value">Capybara’s Palace</span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Qualificação</h3>
+						<span class="data_value">Sócio</span>
+					</div>
+				</div>
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title"></h3>
+						<span class="data_value"></span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Participação</h3>
+						<span class="data_value">100%</span>
+					</div>
+				</div>
+			</div>
+			<hr />
+		</CompositeModal>
+
+		<!-- Comment -->
+		<CompositeModal
+			id="comment_modal"
+			modalTitle="Comentar"
+			modalSubtitle="Adicione um comentário no mapa">
+			<h3>Nó selecionado</h3>
+			<Node
+				entityType="physical"
+				:entityName="'Sandra Pérola'"
+				:entityCPF="'334.664.993-49'"
+				class="in_comments"
+				:disableMenu="true" />
+			<h3>Comentário</h3>
+			<form>
+				<textarea
+					:placeholder="
+						'Dado dinâmico' +
+						' possui 15% de participação na empresa ' +
+						'Dado dinâmico'
+					"
+					required></textarea>
+				<div class="buttons_container">
+					<button class="button_text can_close_modal">Cancelar</button>
+					<button class="button_primary">Salvar</button>
+				</div>
+			</form>
+		</CompositeModal>
+
+		<!-- All comments -->
+		<CompositeModal
+			id="all_comments_modal"
+			modalTitle="Comentários"
+			modalSubtitle="Para adicionar um novo comentário, clique na entidade,<br> em seguida Editar, Comentar">
+			<h3>Entidade</h3>
+			<Node
+				entityType="physical"
+				:entityName="'Sandra Pérola'"
+				:entityCPF="'334.664.993-49'"
+				class="in_comments" />
+			<h3>Comentários</h3>
+
+			<div class="open_modal_maps accordion" id="commentsAccordion">
+				<AccordionItem
+					accordionContainer="commentsAccordion"
+					:textArea="true"
+					v-for="(item, index) in comments"
+					:key="index"
+					:mapName="comments[index].description"
+					:id="index"
+					:mapCreation="{
+						date: comments[index].creation.date,
+						time: comments[index].creation.time,
+					}"
+					:lastModified="{
+						date: comments[index].lastModified.date,
+						time: comments[index].lastModified.time,
+					}"
+					:changedBy="comments[index].changedBy"
+					:isAuthor="comments[index].isAuthor"
+					@showModal="localShowModal" />
 			</div>
 		</CompositeModal>
 	</div>
@@ -289,8 +483,10 @@
 	import AlertModal from "./AlertModal.vue";
 	import ConfirmModal from "./ConfirmModal.vue";
 	import CompositeModal from "./CompositeModal.vue";
-	import Consult from "../Consult.vue";
+	import PersonSearchField from "../PersonSearchField.vue";
 	import ResearchField from "../ResearchField.vue";
+	import AccordionItem from "../AccordionItem.vue";
+	import Node from "../entity/Node.vue";
 
 	export default {
 		name: "Modals",
@@ -298,19 +494,87 @@
 			AlertModal,
 			ConfirmModal,
 			CompositeModal,
-			Consult,
+			PersonSearchField,
 			ResearchField,
+			AccordionItem,
+			Node,
+		},
+		data() {
+			return {
+				// Define different values ​​for identical <CompositeModals/>
+				sameModal: true,
+
+				// Test values ​​for the map
+				listSavedMaps: [
+					{
+						mapName: "Nome do usuário",
+						mapCreation: { date: "20/julho/2022", time: "17:34:59" },
+						lastModified: { date: "28/julho/2022", time: "17:34:59" },
+						changedBy: "O criador",
+						isAuthor: true,
+					},
+					{
+						mapName: "Nome do usuário",
+						mapCreation: { date: "04/06/2000", time: "18:39:23" },
+						lastModified: { date: "10/dezembro/2022", time: "15:59:47" },
+						changedBy: "O usuário",
+						isAuthor: false,
+					},
+				],
+				comments: [
+					{
+						description:
+							"Sandra Pérola possui 50% de participação em Ice Pink, onde atua como gestora.",
+						creation: { date: "20/julho/2022", time: "17:34:59" },
+						lastModified: { date: "28/julho/2022", time: "17:34:59" },
+						changedBy: "O criador",
+						isAuthor: true,
+					},
+					{
+						description:
+							"Sandra Pérola possui 50% de participação em Ice Pink, onde atua como gestora.",
+						creation: { date: "04/06/2000", time: "18:39:23" },
+						lastModified: { date: "10/dezembro/2022", time: "15:59:47" },
+						changedBy: "O usuário",
+						isAuthor: false,
+					},
+				],
+			};
 		},
 		methods: {
-			showModal(theModal) {
+			localShowModal(theModal, sameModal = false) {
 				document.querySelector("#modal").style.display = "flex";
 				try {
-					document
-						.querySelector(".onViewingModal")
-						.classList.remove("onViewingModal");
-				} catch (er) {}
-				document.querySelector(`.${theModal}`).classList.add("onViewingModal");
+					document.querySelector(".on_modal").classList.remove("on_modal");
+				} catch (error) {}
+				// if you're trying to open the 'open' modal, and you don't have any maps saved
+				if (theModal == "open_modal" && this.listSavedMaps.length <= 0)
+					theModal = "open_no_results_modal";
+				setTimeout(() => {
+					document.querySelector(`#${theModal}`).classList.add("on_modal");
+				}, 5);
+				if (sameModal) {
+					this.sameModal = true;
+				} else this.sameModal = false;
 			},
+			checkAutosave() {
+				if (sessionStorage.autoSave == "ativado")
+					this.localShowModal("onload_autosave_modal");
+				else this.closeModal();
+			},
+			closeModal() {
+				document.querySelector(".on_modal").classList.remove("on_modal");
+				document.querySelector("#modal").style.display = "none";
+			},
+		},
+		mounted() {
+			// All buttons that can close the modal
+			document.querySelectorAll(".can_close_modal").forEach((btn) => {
+				btn.addEventListener("click", () => {
+					document.querySelector(".on_modal").classList.remove("on_modal");
+					document.querySelector("#modal").style.display = "none";
+				});
+			});
 		},
 	};
 </script>

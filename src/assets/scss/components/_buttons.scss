@@ -68,7 +68,7 @@ button {
 	display: flex !important;
 }
 
-#btns-map {
+#btns_map {
 	display: flex;
 	flex-direction: column !important;
 	gap: 16px;
@@ -79,7 +79,7 @@ button {
 		gap: 4px;
 	}
 
-	button {
+	button:not(.node) {
 		width: 32px;
 		height: 32px;
 		background: none no-repeat;

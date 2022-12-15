@@ -1,7 +1,11 @@
 <template>
-	<header-app :expandBtnOptions="showMoreBtns" @showModal="showModal"></header-app>
-	<router-view @onResult="onResult" @showModal="showModal"/>
-	<modals></modals>
+<!-- :expandBtnOptions => to show menu with all buttons complete -->
+<!-- @showModal => to show some modal when called -->
+	<HeaderApp
+		:expandBtnOptions="showMoreBtns"
+		@showModal="callShowModal"></HeaderApp>
+	<RouterView @onResult="onResult" @showModal="callShowModal" />
+	<Modals ref="modals"></Modals>
 </template>
 
 <script>
@@ -32,15 +36,17 @@
 					this.showMoreBtns = false;
 				}
 			},
-			showModal(modal) {
-				try {
-					document.querySelector(".onModal").classList.toggle("onModal");
-				} catch (error) {}
-				document.querySelector("#modal").style.display = "flex";
-				document.querySelector(`#${modal}`).classList.add("on_modal");
+			callShowModal(modal, sameModal) {
+			this.$refs.modals.localShowModal(modal, sameModal)
+				// try {
+				// 	document.querySelector(".on_modal").classList.toggle("on_modal");
+				// } catch (error) {}
+				// document.querySelector("#modal").style.display = "flex";
+				// document.querySelector(`#${modal}`).classList.add("on_modal");
 			},
 		},
 	};
+
 </script>
 
-<style lang="scss" src="./assets/scss/main.scss"></style>
+<style lang="css" src="./assets/css/style.css"></style>
