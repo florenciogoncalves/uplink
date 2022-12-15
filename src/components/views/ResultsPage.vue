@@ -1,12 +1,19 @@
 <template>
 	<div id="results_page">
-		<div id="network"></div>
+		<!-- <div id="network"></div> -->
+		<Node
+			entityType="physical"
+			entitySubTypes="pep adm"
+			entityName="Nome do usuário"
+			entityCPF="333.663.993-99"
+			@callShowModal="callShowModal" />
 		<MapSwitches />
 	</div>
 </template>
 
 <script>
 	import MapSwitches from "../MapSwitches.vue";
+	import Node from "../entity/Node.vue";
 	try {
 		window.vis = require("vis-network/standalone");
 	} catch (e) {}
@@ -14,11 +21,12 @@
 		name: "ResultsPage",
 		components: {
 			MapSwitches,
+			Node,
 		},
 		data() {
 			return {
 				network: {
-					nodes: [
+					Nodes: [
 						{ id: 1, label: "Alessandro Marcondes" },
 						{ id: 2, label: "Choco Joy" },
 						{ id: 3, label: "Rei do Hamburger" },
@@ -39,7 +47,11 @@
 				},
 			};
 		},
-		beforeMount() {},
+		methods: {
+			callShowModal(theModal) {
+				this.$emit("showModal", theModal);
+			},
+		},
 		mounted() {
 			this.$emit("onResult", true);
 
@@ -48,7 +60,7 @@
 			 ***			 Demontration of no results modal 			***
 			 ***************************************************
 			 */
-			if (this.network.nodes.length <= 0) {
+			if (this.network.Nodes.length <= 0) {
 				let router = this.$router;
 				try {
 					document.querySelector(".on_modal").classList.toggle("on_modal");
@@ -67,43 +79,56 @@
 			 *** 			VisJs 			***
 			 *************************
 			 */
-			// Create an array with nodes
-			let nodes = new vis.DataSet(this.network.nodes);
+			// Create an array with Nodes
+			// let Nodes = new vis.DataSet(this.network.Nodes);
 
-			// Create an array whith edges
-			let edges = new vis.DataSet(this.network.edges);
+			// // Create an array whith edges
+			// let edges = new vis.DataSet(this.network.edges);
 
-			// Create a network
-			let container = document.querySelector("#network");
-			let data = {
-				nodes: nodes,
-				edges: edges,
-			};
-			var options = {
-				locale: "pt",
-				nodes: {},
-				edges: {
-					smooth: false,
-				},
-				physics: {
-					// forceAtlas2Based: {
-					// 	springLength: 100,
-					// },
-					hierarchicalRepulsion: {
-						centralGravity: 0,
-					},
-					maxVelocity: 150,
-					minVelocity: 2,
-					solver: "forceAtlas2Based",
-				},
-				// Hierárquico
-				// layout: {
-				// 	hierarchical: {
-				// 		enabled: true,
-				// 	},
-				// },
-			};
-			let network = new vis.Network(container, data, options);
+			// // Create a network
+			// let container = document.querySelector("#network");
+			// let data = {
+			// 	Nodes: Nodes,
+			// 	edges: edges,
+			// };
+			// var options = {
+			// 	interaction: { hover: true },
+			// 	locale: "pt",
+			// 	Nodes: {
+			// 		shape: "circle",
+			// 		color: "#798999",
+			// 	},
+			// 	edges: {
+			// 		smooth: false,
+			// 		color: { color: "#798999", highlight: "#798999" },
+			// 		dashes: true,
+			// 	},
+			// 	physics: {
+			// 		// forceAtlas2Based: {
+			// 		// 	springLength: 100,
+			// 		// },
+			// 		hierarchicalRepulsion: {
+			// 			centralGravity: 0,
+			// 		},
+			// 		maxVelocity: 150,
+			// 		minVelocity: 2,
+			// 		solver: "forceAtlas2Based",
+			// 	},
+			// 	// Hierárquico
+			// 	// layout: {
+			// 	// 	hierarchical: {
+			// 	// 		enabled: true,
+			// 	// 	},
+			// 	// },
+			// };
+			// let network = new vis.Network(container, data, options);
+
+			// network.on("selectNode", (params) => {
+			// 	console.log("hoverNode Event:", params);
+			// });
+			// network.on("deselectNode", (params) => {
+			// 	console.log("hoverNode Event:", params);
+			// });
 		},
 	};
 </script>

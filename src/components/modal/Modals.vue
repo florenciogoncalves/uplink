@@ -296,8 +296,9 @@
 				type="text"
 				placeholder="Nome do usuário" />
 			<h5 class="modal_subtitle">Mapas</h5>
-			<div class="open_modal_maps accordion" id="accordionFather">
+			<div class="open_modal_maps accordion" id="openAccordion">
 				<AccordionItem
+					accordionContainer="openAccordion"
 					v-for="(item, index) in listSavedMaps"
 					:key="index"
 					:mapName="listSavedMaps[index].mapName"
@@ -335,6 +336,146 @@
 				</button>
 			</div>
 		</CompositeModal>
+
+		<!-- CPF query -->
+		<CompositeModal id="cpf_query_modal" modalTitle="Consulta ao CPF - upLexis">
+			<div class="cpf_query_btns">
+				<button class="empty_button file_upload_2"></button>
+				<button class="empty_button print"></button>
+			</div>
+			<h1>Dados Cadastrais - Título do bloco</h1>
+			<hr />
+			<div class="content_area">
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title text_color">CPF</h3>
+						<span class="data_value">333.663.993-99</span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Situação</h3>
+						<span class="data_value">Regular</span>
+					</div>
+				</div>
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title text_color">Nome</h3>
+						<span class="data_value">Joanne Angelina Germano</span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Data da consulta</h3>
+						<span class="data_value">05/11/2022</span>
+					</div>
+				</div>
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title">Data de Nascimento</h3>
+						<span class="data_value">05/04/1976</span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Cidade/Estado</h3>
+						<span class="data_value">Curitiba - PR</span>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<h1>Participação Societária</h1>
+			<div class="content_area">
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title">CNPJ</h3>
+						<span class="data_value">11.111.991/0001-11</span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Entrada</h3>
+						<span class="data_value">07/01/2021</span>
+					</div>
+				</div>
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title">Razão Social</h3>
+						<span class="data_value">Capybara’s Palace</span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Qualificação</h3>
+						<span class="data_value">Sócio</span>
+					</div>
+				</div>
+				<div class="content_separator">
+					<div class="content_top">
+						<h3 class="data_title"></h3>
+						<span class="data_value"></span>
+					</div>
+					<div class="content_botton">
+						<h3 class="data_title">Participação</h3>
+						<span class="data_value">100%</span>
+					</div>
+				</div>
+			</div>
+			<hr />
+		</CompositeModal>
+
+		<!-- Comment -->
+		<CompositeModal
+			id="comment_modal"
+			modalTitle="Comentar"
+			modalSubtitle="Adicione um comentário no mapa">
+			<h3>Nó selecionado</h3>
+			<Node
+				entityType="physical"
+				:entityName="'Sandra Pérola'"
+				:entityCPF="'334.664.993-49'"
+				class="in_comments"
+				:disableMenu="true" />
+			<h3>Comentário</h3>
+			<form>
+				<textarea
+					:placeholder="
+						'Dado dinâmico' +
+						' possui 15% de participação na empresa ' +
+						'Dado dinâmico'
+					"
+					required></textarea>
+				<div class="buttons_container">
+					<button class="button_text can_close_modal">Cancelar</button>
+					<button class="button_primary">Salvar</button>
+				</div>
+			</form>
+		</CompositeModal>
+
+		<!-- All comments -->
+		<CompositeModal
+			id="all_comments_modal"
+			modalTitle="Comentários"
+			modalSubtitle="Para adicionar um novo comentário, clique na entidade,<br> em seguida Editar, Comentar">
+			<h3>Entidade</h3>
+			<Node
+				entityType="physical"
+				:entityName="'Sandra Pérola'"
+				:entityCPF="'334.664.993-49'"
+				class="in_comments" />
+			<h3>Comentários</h3>
+
+			<div class="open_modal_maps accordion" id="commentsAccordion">
+				<AccordionItem
+					accordionContainer="commentsAccordion"
+					:textArea="true"
+					v-for="(item, index) in comments"
+					:key="index"
+					:mapName="comments[index].description"
+					:id="index"
+					:mapCreation="{
+						date: comments[index].creation.date,
+						time: comments[index].creation.time,
+					}"
+					:lastModified="{
+						date: comments[index].lastModified.date,
+						time: comments[index].lastModified.time,
+					}"
+					:changedBy="comments[index].changedBy"
+					:isAuthor="comments[index].isAuthor"
+					@showModal="localShowModal" />
+			</div>
+		</CompositeModal>
 	</div>
 </template>
 
@@ -345,6 +486,7 @@
 	import PersonSearchField from "../PersonSearchField.vue";
 	import ResearchField from "../ResearchField.vue";
 	import AccordionItem from "../AccordionItem.vue";
+	import Node from "../entity/Node.vue";
 
 	export default {
 		name: "Modals",
@@ -355,6 +497,7 @@
 			PersonSearchField,
 			ResearchField,
 			AccordionItem,
+			Node,
 		},
 		data() {
 			return {
@@ -373,6 +516,24 @@
 					{
 						mapName: "Nome do usuário",
 						mapCreation: { date: "04/06/2000", time: "18:39:23" },
+						lastModified: { date: "10/dezembro/2022", time: "15:59:47" },
+						changedBy: "O usuário",
+						isAuthor: false,
+					},
+				],
+				comments: [
+					{
+						description:
+							"Sandra Pérola possui 50% de participação em Ice Pink, onde atua como gestora.",
+						creation: { date: "20/julho/2022", time: "17:34:59" },
+						lastModified: { date: "28/julho/2022", time: "17:34:59" },
+						changedBy: "O criador",
+						isAuthor: true,
+					},
+					{
+						description:
+							"Sandra Pérola possui 50% de participação em Ice Pink, onde atua como gestora.",
+						creation: { date: "04/06/2000", time: "18:39:23" },
 						lastModified: { date: "10/dezembro/2022", time: "15:59:47" },
 						changedBy: "O usuário",
 						isAuthor: false,
@@ -399,8 +560,7 @@
 			checkAutosave() {
 				if (sessionStorage.autoSave == "ativado")
 					this.localShowModal("onload_autosave_modal");
-				else
-					this.closeModal()
+				else this.closeModal();
 			},
 			closeModal() {
 				document.querySelector(".on_modal").classList.remove("on_modal");

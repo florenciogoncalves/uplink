@@ -101,6 +101,16 @@
 	margin-right: 35px;
 }
 
+.empty_button.file_upload_2 {
+	@include mix_insert_img('file_upload_2');
+	margin-right: 35px;
+}
+
+.empty_button.print {
+	@include mix_insert_img('print');
+	margin-right: 35px;
+}
+
 .autosave-container {
 	display: inline-flex;
 	align-items: center;

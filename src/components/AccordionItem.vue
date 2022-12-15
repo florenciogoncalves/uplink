@@ -8,7 +8,8 @@
 				:data-bs-target="'#collapse_' + id"
 				aria-expanded="false"
 				:aria-controls="'collapse_' + id">
-				<input type="text" :value="mapName" ref="mapName" disabled />
+				<input v-if="!textArea" type="text" :value="mapName" ref="mapName" disabled />
+				<textarea v-else type="text" :value="mapName" ref="mapName" disabled></textarea>
 				<MapEditBtns
 					:isAuthor="isAuthor"
 					@showModal="callShowModal"
@@ -19,7 +20,7 @@
 			:id="'collapse_' + id"
 			class="accordion-collapse collapse"
 			:aria-labelledby="'heading_' + id"
-			data-bs-parent="#accordionFather">
+			:data-bs-parent="'#' + accordionContainer">
 			<div class="accordion-body">
 				<p class="accordion_description">
 					Data de Criação:
@@ -51,6 +52,8 @@
 			lastModified: { date: String, time: String },
 			changedBy: String,
 			isAuthor: Boolean,
+			accordionContainer: String,
+			textArea: Boolean
 		},
 		methods: {
 			callShowModal(el) {

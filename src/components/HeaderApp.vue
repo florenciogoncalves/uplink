@@ -5,7 +5,11 @@
 				<img class="header_logo" src="./../../public/logo.svg" alt="upLink"
 			/></router-link>
 			<div id="header__buttons">
-				<DropdownArea btnClass="help" btnTitle="Ajuda" setTooltipSide="bottom" :class="'to_right'">
+				<DropdownArea
+					btnClass="help"
+					btnTitle="Ajuda"
+					setTooltipSide="bottom"
+					:class="'to_right'">
 					<DropItem>Tutorial (em breve)</DropItem>
 					<DropItem @click="$emit('showModal', 'fonts_modal')">Fontes</DropItem>
 					<DropItem>FAQ (em breve)</DropItem>
@@ -21,7 +25,10 @@
 
 		<div id="header_bottom_row">
 			<div id="header__buttons">
-				<DropdownArea btnClass="consult" btnTitle="Consulta" setTooltipSide="bottom">
+				<DropdownArea
+					btnClass="consult"
+					btnTitle="Consulta"
+					setTooltipSide="bottom">
 					<DropItem>
 						<a href="./" target="_blank">Nova consulta</a>
 					</DropItem>
@@ -32,7 +39,10 @@
 					>
 				</DropdownArea>
 
-				<DropdownArea btnClass="file" btnTitle="Arquivo" setTooltipSide="bottom">
+				<DropdownArea
+					btnClass="file"
+					btnTitle="Arquivo"
+					setTooltipSide="bottom">
 					<DropItem
 						@click="$emit('showModal', 'save_modal')"
 						:isBtnDisabled="!expandBtnOptions"
@@ -51,14 +61,20 @@
 						@click="$emit('showModal', 'to_locate_modal')">
 						<span class="tooltip_desc tooltip_bottom">Localizar</span>
 					</button>
-					<DropdownArea btnClass="highlight" btnTitle="Destacar" setTooltipSide="bottom">
+					<DropdownArea
+						btnClass="highlight"
+						btnTitle="Destacar"
+						setTooltipSide="bottom">
 						<DropItem>Administradores</DropItem>
 						<DropItem>PEP</DropItem>
 						<DropItem>Pessoas Físicas</DropItem>
 						<DropItem>Pessoas Jurídicas</DropItem>
 						<DropItem>Desfazer destaque</DropItem>
 					</DropdownArea>
-					<DropdownArea btnClass="file_upload" btnTitle="Exportar" setTooltipSide="bottom">
+					<DropdownArea
+						btnClass="file_upload"
+						btnTitle="Exportar"
+						setTooltipSide="bottom">
 						<DropItem>JPEG</DropItem>
 						<DropItem>PNG</DropItem>
 						<DropItem>PDF</DropItem>
@@ -157,6 +173,27 @@
 			sessionStorage.autoSave == "desativado"
 				? (this.autoSave = false)
 				: (this.autoSave = true);
+
+			// Set z-index up or down to header, on mouseenter event
+			let el = this.$el;
+			this.$el.addEventListener("mouseenter", () => {
+				el.classList.add("z_up");
+			});
+			this.$el.addEventListener("mouseleave", () => {
+				if (!this.$el.querySelector(".on_dropdown")) {
+					el.classList.remove("z_up");
+					console.log('pass')
+				}
+				else {
+				document.addEventListener('click', enableContentOverlay)
+					function enableContentOverlay(evt) {
+						if(!document.querySelector('#header').contains(evt.target)){
+					el.classList.remove("z_up");
+							document.removeEventListener('click', enableContentOverlay)
+						}
+					}
+				}
+			});
 		},
 	};
 </script>
