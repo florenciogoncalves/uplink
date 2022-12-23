@@ -1,4 +1,7 @@
 #modal {
+	.button-text {
+		color: $color-neutral-black-medium;
+	}
 	& > * {
 		border-radius: $small-border;
 		position: relative;
@@ -112,13 +115,17 @@
 			color: $font-color-medium;
 		}
 
+		.modal_description.modal_subtitle {
+			color: $color-neutral-black-medium;
+		}
+
 		&:not(#fonts_modal) .modal_subtitle:not(.modal_description) {
 			padding: 16px 8px 8px;
 			box-sizing: border-box;
 		}
 	}
 
-	#add_modal .modal_subtitle {
+	#add-modal .modal_subtitle {
 		margin-bottom: 24px;
 	}
 
@@ -133,7 +140,7 @@
 		padding-right: 0;
 		padding-top: 0;
 
-		&#open_modal .modal_subtitle:not(.modal_description),
+		&#open-modal .modal_subtitle:not(.modal_description),
 		&#open_no_results_modal .modal_subtitle:not(.modal_description) {
 			max-width: 480px;
 			padding-left: 0;
@@ -379,7 +386,7 @@
 	}
 }
 
-#save_modal {
+#save-modal {
 	#map_save_name {
 		width: 480px;
 		height: 40px;

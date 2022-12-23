@@ -9,14 +9,13 @@ $file_upload_icon: "file_upload";
 $history_icon: "history";
 
 $subtitles_icon: "subtitles";
+$subtitles_active-icon: "subtitles_active";
 
 $topic_icon: "topic";
 
 $arrow_forward_icon: "arrow_forward_ios";
 
 $close_icon: "close";
-
-
 
 // Physical Person
 $person_icon: "person";
@@ -33,10 +32,11 @@ $keyboard_left_icon: "keyboard_arrow_left";
 $keyboard_right_icon: "keyboard_arrow_right";
 
 $hub_icon: "hub";
+$hub_active-icon: "hub_active";
 $schema_icon: "schema";
+$schema_active-icon: "schema_active";
 $tree_icon: "account_tree";
-
-
+$tree_active-icon: "account_tree_active";
 
 /*
 ***********************************
@@ -49,7 +49,6 @@ $apps_white_icon: "apps-white";
 
 $hide_icon: "akar-icons_eye-closed";
 
-
 // Legal Person
 $pj_icon: "apartment";
 $pj_white_icon: "apartment-white";
@@ -58,25 +57,26 @@ $pj_white_icon: "apartment-white";
 $toggle_off_icon: "State=toggle_of";
 $toggle_on_icon: "State=toggle_on";
 
-
 // Checkbox
 $checkbox_blank_icon: "State=Blank";
 $checkbox_checked_icon: "State=Selected";
 $checkbox_disable_icon: "State=Disable-2";
-
 
 // Settings
 $settings_default_icon: "State=Default-1";
 $settings_hover_icon: "State=Hover-1";
 $settings_disable_icon: "State=Disable-1";
 
-
 // Edit
 $edit_default_icon: "State=Default";
 $edit_hover_icon: "State=Hover";
 $edit_disable_icon: "State=Disable";
 
-
 // Zoom
-$zoom_in_icon: "zoom-in";
-$zoom_out_icon: "zoom-out";
+$zoom-in-icon: "zoom-in";
+$zoom-in_hover-icon: "zoom-in_hover";
+$zoom-in_active-icon: "zoom-in_active";
+
+$zoom-out-icon: "zoom-out";
+$zoom-out_hover-icon: "zoom-out_hover";
+$zoom-out_active-icon: "zoom-out_active";

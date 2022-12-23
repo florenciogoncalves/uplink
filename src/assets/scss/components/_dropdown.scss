@@ -1,22 +1,24 @@
-// Dropdown_area
-.dropdown_area {
+// dropdown-area
+.dropdown-area {
 	position: relative;
+	height: max-content;
+	max-height: 48px;
 }
 
-.empty_button.help {
+.button.help {
 	margin-right: 0;
 }
 
 .dropdown {
-	@include mix_dropdown();
+	@include mix-dropdown();
 }
 
-.dropdown_area.to_right .dropdown {
+.dropdown-area._position--right .dropdown {
 	right: 0;
 	left: auto;
 }
 
-.dropdown_history {
+.dropdown-history {
 	width: max-content;
 	min-width: 170px;
 	padding: 24px;
@@ -30,13 +32,13 @@
 	}
 }
 
-.dropdown_history,
-.dropdown_subtitles {
-	.dropdown_information_container {
+.dropdown-history,
+.dropdown-subtitles {
+	.dropdown-information-container {
 		display: flex;
 		flex-direction: column;
 
-		.history_item {
+		.list-item {
 			@extend .p;
 			position: relative;
 			padding: 8px;
@@ -83,7 +85,7 @@
 	}
 }
 
-.dropdown_subtitles {
+.dropdown-subtitles {
 	bottom: 0;
 	top: auto;
 	left: calc(100% + 8px) !important;
@@ -98,8 +100,8 @@
 	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 	opacity: 0.9;
 	overflow-y: scroll !important;
-	.align_legend_items {
-		.history_item {
+	.align-legend-items {
+		.list-item {
 			display: grid !important;
 			grid-template-columns: max-content 1fr;
 			gap: 8px !important;
@@ -108,7 +110,7 @@
 				content: none;
 			}
 
-			.subtitles_text {
+			.subtitles-text {
 				@extend .p;
 				font-size: 14px !important;
 				line-height: 150% !important;

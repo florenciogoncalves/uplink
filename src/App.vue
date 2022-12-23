@@ -37,16 +37,11 @@
 				}
 			},
 			callShowModal(modal, sameModal) {
-			this.$refs.modals.localShowModal(modal, sameModal)
-				// try {
-				// 	document.querySelector(".on_modal").classList.toggle("on_modal");
-				// } catch (error) {}
-				// document.querySelector("#modal").style.display = "flex";
-				// document.querySelector(`#${modal}`).classList.add("on_modal");
+				this.$refs.modals.localShowModal(modal, sameModal)
 			},
 		},
 	};
 
 </script>
 
-<style lang="css" src="./assets/css/style.css"></style>
+<style lang="scss" src="./assets/scss/main.scss"></style>

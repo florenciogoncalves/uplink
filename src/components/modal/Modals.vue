@@ -12,7 +12,7 @@
 			:modalTitle="'Excluir'"
 			:modalSubtitle="'O mapa foi excluído com sucesso!<br>Lembre-se que o mapa foi excluído apenas do arquivo no upLink.'"
 			:btnFunction="true"
-			@btnDoes="localShowModal('open_modal')" />
+			@btnDoes="localShowModal('open-modal')" />
 
 		<!-- Save -->
 		<AlertModal
@@ -25,13 +25,12 @@
 			id="back_to_upminer_modal"
 			:modalTitle="'Voltar ao UpMiner'"
 			:modalSubtitle="'Tem certeza que deseja sair do upLink e voltar ao upMiner?'"
-			:btnNoDisabled="true"
 			:btnYesFunction="true"
 			@btnYesDoes="checkAutosave" />
 
 		<!-- Autosave on load -->
 		<ConfirmModal
-			id="onload_autosave_modal"
+			id="onload_autosave-modal"
 			:modalTitle="'Salvamento automático em andamento'"
 			:modalSubtitle="'Ao sair do upLink algumas alterações poderão não ter sido salves.<br>Deseja sair assim mesmo?'" />
 
@@ -42,7 +41,7 @@
 			:modalSubtitle="'Tem certeza que deseja excluir o mapa do seu arquivo no upLink?'"
 			:btnYesFunction="true"
 			:btnNoFunction="true"
-			@btnNoDoes="localShowModal('open_modal')"
+			@btnNoDoes="localShowModal('open-modal')"
 			@btnYesDoes="localShowModal('sucess_delete_modal')" />
 
 		<!-- Fonts on upLink -->
@@ -255,7 +254,7 @@
 
 		<!-- Add modal -->
 		<CompositeModal
-			id="add_modal"
+			id="add-modal"
 			:modalTitle="'Adicionar'"
 			:modalSubtitle="'Adicione uma nova consulta que pode ou não ter relação com seu<br>mapa atual. Você pode utilizar esse recurso para conferir dados.'"
 			><PersonSearchField :btnRedirect="false" />
@@ -283,7 +282,7 @@
 
 		<!-- Open modal -->
 		<CompositeModal
-			id="open_modal"
+			id="open-modal"
 			:modalTitle="this.sameModal == true ? 'Excluir' : 'Abrir'"
 			:modalSubtitle="
 				this.sameModal == true
@@ -296,7 +295,7 @@
 				type="text"
 				placeholder="Nome do usuário" />
 			<h5 class="modal_subtitle">Mapas</h5>
-			<div class="open_modal_maps accordion" id="openAccordion">
+			<div class="open-modal_maps accordion" id="openAccordion">
 				<AccordionItem
 					accordionContainer="openAccordion"
 					v-for="(item, index) in listSavedMaps"
@@ -319,7 +318,7 @@
 
 		<!-- Save modal -->
 		<CompositeModal
-			id="save_modal"
+			id="save-modal"
 			:modalTitle="'Salvar'"
 			:modalSubtitle="'Digite um nome para salvar o mapa atual'">
 			<input
@@ -328,9 +327,9 @@
 				placeholder="Meu mapa"
 				id="map_save_name" />
 			<div class="buttons_container">
-				<button class="button_text can_close_modal">Cancelar</button>
+				<button class="button-text can_close_modal">Cancelar</button>
 				<button
-					class="button_primary"
+					class="button-primary"
 					@click="localShowModal('save_confirmation_modal')">
 					Salvar
 				</button>
@@ -340,8 +339,8 @@
 		<!-- CPF query -->
 		<CompositeModal id="cpf_query_modal" modalTitle="Consulta ao CPF - upLexis">
 			<div class="cpf_query_btns">
-				<button class="empty_button file_upload_2"></button>
-				<button class="empty_button print"></button>
+				<button class="button file_upload_2"></button>
+				<button class="button print"></button>
 			</div>
 			<h1>Dados Cadastrais - Título do bloco</h1>
 			<hr />
@@ -436,8 +435,8 @@
 					"
 					required></textarea>
 				<div class="buttons_container">
-					<button class="button_text can_close_modal">Cancelar</button>
-					<button class="button_primary">Salvar</button>
+					<button class="button-text can_close_modal">Cancelar</button>
+					<button class="button-primary">Salvar</button>
 				</div>
 			</form>
 		</CompositeModal>
@@ -455,7 +454,7 @@
 				class="in_comments" />
 			<h3>Comentários</h3>
 
-			<div class="open_modal_maps accordion" id="commentsAccordion">
+			<div class="open-modal_maps accordion" id="commentsAccordion">
 				<AccordionItem
 					accordionContainer="commentsAccordion"
 					:textArea="true"
@@ -548,7 +547,7 @@
 					document.querySelector(".on_modal").classList.remove("on_modal");
 				} catch (error) {}
 				// if you're trying to open the 'open' modal, and you don't have any maps saved
-				if (theModal == "open_modal" && this.listSavedMaps.length <= 0)
+				if (theModal == "open-modal" && this.listSavedMaps.length <= 0)
 					theModal = "open_no_results_modal";
 				setTimeout(() => {
 					document.querySelector(`#${theModal}`).classList.add("on_modal");
@@ -559,7 +558,7 @@
 			},
 			checkAutosave() {
 				if (sessionStorage.autoSave == "ativado")
-					this.localShowModal("onload_autosave_modal");
+					this.localShowModal("onload_autosave-modal");
 				else this.closeModal();
 			},
 			closeModal() {

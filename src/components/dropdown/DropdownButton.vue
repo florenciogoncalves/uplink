@@ -1,6 +1,9 @@
 <template>
-	<button class="empty_button tooltip_caller">
-		<span class="tooltip_desc" :class="'tooltip_' + tooltipSide">{{ setBtnTitle }}</span>
+	<button class="button tooltip-caller">
+		&nbsp;
+		<span class="tooltip-desc" :class="'_tooltip--' + tooltipSide">{{
+			setBtnTitle
+		}}</span>
 	</button>
 </template>
 
@@ -9,7 +12,7 @@
 		name: "DropdownButton",
 		props: {
 			setBtnTitle: String,
-			tooltipSide: String
+			tooltipSide: String,
 		},
 	};
 </script>

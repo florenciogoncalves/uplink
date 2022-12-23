@@ -2,50 +2,52 @@ button {
 	cursor: pointer;
 }
 
-/* button_primary*/
-.button_primary {
-	@include mix_button($small-border);
+/* Button type: Primary*/
+.button-primary {
+	@include mix-button($small-border);
 
 	border: none;
 	color: $color-neutral-white-pure;
 	background-color: $color-primary-dark;
+
+	// Modifiers
+	&:hover {
+		background-color: ($color-primary-medium);
+	}
+
+	&:active {
+		background-color: $color-primary-dark;
+	}
+
+	&:disabled {
+		background-color: $color-neutral-white-dark;
+	}
 }
 
-.button_primary:hover {
-	background-color: ($color-primary-medium);
-}
-
-.button_primary:active {
-	background-color: $color-primary-dark;
-}
-
-.button_primary:disabled {
-	background-color: $color-neutral-white-dark;
-}
-
-/* Button-secondary*/
+/* Button type: Secondary*/
 .button-secondary {
-	@include mix_button($small-border);
-	@include mix_btn_border_and_color($color-primary-dark);
+	@include mix-button($small-border);
+	@include mix-btn-border-and-color($color-primary-dark);
+
+	&:hover {
+		@include mix-btn-border-and-color($color-primary-medium);
+	}
+
+	&:active {
+		border: $color-primary-dark;
+		background-color: $color-primary-dark;
+		color: $color-neutral-white-pure;
+	}
+
+	&:disabled {
+		border: $color-neutral-white-dark;
+		color: $color-neutral-white-dark;
+	}
 }
 
-.button-secondary:hover {
-	@include mix_btn_border_and_color($color-primary-medium);
-}
-
-.button-secondary:active {
-	border: $color-primary-dark;
-	background-color: $color-primary-dark;
-	color: $color-neutral-white-pure;
-}
-
-.button-secondary:disabled {
-	border: $color-neutral-white-dark;
-	color: $color-neutral-white-dark;
-}
-
-.button_text {
-	@include mix_button($small-border);
+// Button type: Text
+.button-text {
+	@include mix-button($small-border);
 	text-decoration: underline;
 	border: none;
 	background: none;
@@ -64,58 +66,93 @@ button {
 	}
 }
 
-#results_page {
-	display: flex !important;
-}
-
-#btns_map {
+// Network buttons container
+.network-buttons-container {
 	display: flex;
-	flex-direction: column !important;
+	flex-direction: column;
 	gap: 16px;
 
-	div {
+	.map-view,
+	.zoom {
 		display: flex;
 		flex-direction: column;
 		gap: 4px;
 	}
 
-	button:not(.node) {
+	.network-buttons-container__button {
 		width: 32px;
 		height: 32px;
-		background: none no-repeat;
 		border: 1px solid $color-neutral-black-medium;
 		border-radius: $small-border;
 
+		background-color: $color-neutral-white-pure;
 		background-position: center;
+		background-repeat: no-repeat;
 	}
 
 	/* Map view*/
-	#map_view {
-		#default {
-			@include mix_insert_img($hub_icon);
+	.map-view {
+		.default {
+			@include mix-insert-image($hub_icon);
+			&._active {
+				@include mix-insert-image($hub_active-icon);
+				border-color: $color-primary-dark;
+			}
 		}
 
-		#schema {
-			@include mix_insert_img($schema_icon);
+		.schema {
+			@include mix-insert-image($schema_icon);
+			&._active {
+				@include mix-insert-image($schema_active-icon);
+				border-color: $color-primary-dark;
+			}
 		}
 
-		#account-tree {
-			@include mix_insert_img($tree_icon);
+		.account-tree {
+			@include mix-insert-image($tree_icon);
+			&._active {
+				@include mix-insert-image($tree_active-icon);
+				border-color: $color-primary-dark;
+			}
 		}
 	}
 
 	/* Zoom*/
-	#zoom {
-		#zoom_in {
-			@include mix_insert_img($zoom_in_icon);
+	.zoom {
+		.zoom-in {
+			@include mix-insert-image($zoom-in-icon);
+			&:hover {
+				@include mix-insert-image($zoom-in_hover-icon);
+				border-color: $color-primary-medium;
+			}
+			&:active {
+				@include mix-insert-image($zoom-in_active-icon);
+				border: none;
+
+				background-color: $color-primary-dark;
+			}
 		}
 
-		#zoom_out {
-			@include mix_insert_img($zoom_out_icon);
+		.zoom-out {
+			@include mix-insert-image($zoom-out-icon);
+			&:hover {
+				@include mix-insert-image($zoom-out_hover-icon);
+				border-color: $color-primary-medium;
+			}
+			&:active {
+				@include mix-insert-image($zoom-out_active-icon);
+				border: none;
+
+				background-color: $color-primary-dark;
+			}
 		}
 	}
 
-	#subtitles {
-		@include mix_insert_img($subtitles_icon);
+	.subtitles {
+		@include mix-insert-image($subtitles_icon);
+		&._active {
+			@include mix-insert-image($subtitles_active-icon);
+			border-color: $color-primary-dark;
+		}
 	}
 }

@@ -91,7 +91,6 @@
 					else item.classList.remove("change_border_color");
 				}, 5);
 			});
-			/*.parentElement.parentElement.style.display = 'none'*/
 		},
 	};
 </script>

@@ -1,5 +1,12 @@
 $p-8-24: 8px 24px;
 
+// Resetting browser styling
+* {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+
 html {
 	height: 100%;
 	width: 100%;
@@ -17,9 +24,15 @@ body {
 	background-color: $color-primary-light;
 }
 
-* {
-	outline: none;
+fieldset {
+	border: none;
 }
+
+ul {
+	list-style-type: none;
+}
+
+@import "./header";
 
 // PersonSearchField.vue
 .p_fj_container {
@@ -62,13 +75,16 @@ body {
 		margin-left: 3vw;
 
 		h2 {
+			width: max-content;
+			margin-bottom: 8px;
+
 			font-weight: 400;
 			line-height: 150%;
 		}
 
 		.interative_area {
 			display: flex;
-			margin-top: 25px;
+			margin-top: 24px;
 		}
 
 		.interative_area > div {
@@ -108,63 +124,6 @@ body {
 
 /*
 *****************************
-*** 			HeaderApp 			***
-*****************************
-*/
-#header {
-	position: sticky;
-	top: 0;
-	z-index: 999;
-}
-
-.z_up {
-	z-index: 1000 !important;
-}
-
-#header_bottom_row,
-#header_top_row {
-	padding: 0 24px;
-	display: flex;
-	align-items: center;
-	height: 48px;
-	max-height: 48px;
-	box-sizing: border-box;
-	z-index: 9999;
-}
-
-#header__buttons {
-	display: flex;
-	align-items: center;
-	width: 100%;
-}
-
-#header_top_row .empty_button {
-	position: relative;
-	height: 48px;
-	width: 48px;
-	background-size: 24px;
-}
-
-#header_top_row .empty_button:hover {
-	background-color: $color-primary-dark;
-	transition: all ease-in-out 300ms;
-}
-
-#header_top_row {
-	display: grid;
-	grid-template-columns: auto auto;
-	justify-content: space-between;
-
-	background: $color-neutral-white-pure;
-}
-
-#header_bottom_row {
-	width: 100%;
-	background: none;
-}
-
-/*
-*****************************
 *** 			HomePage  			***
 *****************************
 */
@@ -190,7 +149,7 @@ body {
 
 		.interative_area {
 			display: flex;
-			margin-top: 25px;
+			margin-top: 24px;
 		}
 
 		.interative_area > div {
@@ -233,7 +192,7 @@ body {
 ***				Modals.vue				***
 *******************************	
 */
-#open_modal {
+#open-modal {
 	height: 480px;
 }
 
@@ -416,7 +375,7 @@ body {
 *** 			MapSwitches			 ***
 ******************************
 */
-#container_map {
+.container-map {
 	position: absolute;
 	left: 24px;
 	bottom: 24px;
@@ -428,17 +387,40 @@ body {
 ***************************
 */
 
-.tooltip_caller {
+.tooltip-caller {
 	position: relative;
 
-	.tooltip_desc {
+	.tooltip-desc {
+		transition: all 200ms ease;
 		display: none;
-		z-index: 9999;
+		position: absolute;
+		opacity: 0;
+
+		animation-duration: 1s !important;
+		animation-name: waitfor !important;
 	}
-	&:not(.autosave-container):hover .tooltip_desc,
-	&.autosave-container input:hover + .tooltip_desc {
+	@keyframes waitfor {
+		0% {
+			opacity: 0;
+		}
+
+		85% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+	&:not(.autosave-container):hover .tooltip-desc,
+	&.autosave-container input:hover + .tooltip-desc {
 		display: block;
 		position: absolute;
+		transition: all 3000ms ease;
+		height: max-content;
+		max-height: 48px;
+
+		opacity: 1;
 
 		padding: 4px 10px;
 		border-radius: $small-border;
@@ -455,7 +437,7 @@ body {
 		background: $color-neutral-black-dark;
 
 		// Tooltipposition left
-		&.tooltip_right {
+		&._tooltip--right {
 			left: calc(100% + 8px);
 			top: 50%;
 			transform: translateY(-50%);
@@ -467,7 +449,7 @@ body {
 		}
 
 		//  Tooltip position bottom
-		&.tooltip_bottom {
+		&._tooltip--bottom {
 			top: calc(100% + 8px);
 			left: 50%;
 			transform: translateX(-50%);
@@ -491,13 +473,13 @@ body {
 	}
 
 	// Autosave tooltip
-	&.autosave-container input:hover + .tooltip_desc {
+	&.autosave-container input:hover + .tooltip-desc {
 		left: 97.75px !important;
 	}
 
 	// Back to upMiner tooltip
 	&.apps {
-		& .tooltip_desc {
+		& .tooltip-desc {
 			top: calc(100% + 8px);
 			right: auto !important;
 			left: 8px !important;
@@ -556,10 +538,10 @@ body {
 		}
 
 		&.physical_person {
-			@include mix_insert_img($person_white_icon);
+			@include mix-insert-image($person_white_icon);
 		}
 		&.legal_person {
-			@include mix_insert_img($pj_white_icon);
+			@include mix-insert-image($pj_white_icon);
 		}
 	}
 
@@ -661,9 +643,10 @@ body {
 
 	// Internal entity menu
 	.internal_menu {
-		@include mix_dropdown();
+		@include mix-dropdown();
 		top: 100%;
 		overflow: visible;
+		z-index: 999;
 
 		button {
 			min-width: 200px;
@@ -719,17 +702,18 @@ body {
 			margin-right: 0;
 			width: 100%;
 			white-space: nowrap;
-			@include mix_insert_img($keyboard_right_icon);
+			@include mix-insert-image($keyboard_right_icon);
 			background-repeat: no-repeat;
 			background-position: center right 8px;
 
 			&:hover {
-				@include mix_insert_img($keyboard_right_icon + "-white");
+				@include mix-insert-image($keyboard_right_icon + "-white");
 				background-repeat: no-repeat;
 				background-position: center right 8px;
 			}
 
-			&:last-of-type, &:last-of-type:hover {
+			&:last-of-type,
+			&:last-of-type:hover {
 				background-image: none;
 			}
 
@@ -765,22 +749,13 @@ body {
 	&.hidden_entity {
 		.node {
 			background-color: transparent !important;
-			@include mix_insert_img($hide_icon);
+			@include mix-insert-image($hide_icon);
 		}
 		.entity_legend {
 			display: none;
 		}
 		.entity_subtype {
 			display: none;
-		}
-	}
-}
-
-#btns_map .tooltip_caller {
-	&:hover {
-		filter: invert(1);
-		& .tooltip_desc {
-			filter: invert(1);
 		}
 	}
 }

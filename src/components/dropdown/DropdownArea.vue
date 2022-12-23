@@ -1,12 +1,12 @@
 <template>
-	<div class="dropdown_area">
+	<div class="dropdown-area">
 		<DropdownButton
 			:setBtnTitle="btnTitle"
-			:class="btnClass"
+			:class="btnClass + ' ' + btnSpecialClass"
 			:id="btnId"
 			:tooltipSide="setTooltipSide"
 			@click="toggle_dropdown($event)"></DropdownButton>
-		<Dropdown :class="'dropdown_' + btnClass" v-show="isDropdownShow">
+		<Dropdown :class="'dropdown-' + btnClass" v-show="isDropdownShow">
 			<slot></slot>
 		</Dropdown>
 	</div>
@@ -30,7 +30,8 @@
 			btnClass: String,
 			btnTitle: String,
 			btnId: String,
-			setTooltipSide: String
+			btnSpecialClass: String,
+			setTooltipSide: String,
 		},
 		methods: {
 			toggle_dropdown(e) {
@@ -38,13 +39,16 @@
 				this.isDropdownShow = !this.isDropdownShow;
 				if (this.isDropdownShow) {
 					document.addEventListener("click", closeDropdown);
-					el.$el.classList.add('on_dropdown')
+					el.$el.classList.add("on_dropdown");
 
 					function closeDropdown(evt) {
-						if (!el.$el.contains(evt.target) && !document.querySelector('#modal').contains(evt.target)) {
-					el.$el.classList.remove('on_dropdown')
+						if (
+							!el.$el.contains(evt.target) &&
+							!document.querySelector("#modal").contains(evt.target)
+						) {
+							el.$el.classList.remove("on_dropdown");
 							el.isDropdownShow = false;
-							document.removeEventListener('click', closeDropdown)
+							document.removeEventListener("click", closeDropdown);
 						}
 					}
 				}

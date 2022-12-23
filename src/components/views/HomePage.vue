@@ -3,7 +3,7 @@
 		<div class="container">
 			<h2 class="h2">Olá! Você está no upLink</h2>
 			<p class="p">
-				Consulte por pessoa física ou jurídica para gerar um mapa relacional
+				Consulte por pessoa física ou jurídica<br/>para gerar um mapa relacional
 			</p>
 			<PersonSearchField />
 		</div>

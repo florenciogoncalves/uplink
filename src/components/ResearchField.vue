@@ -1,21 +1,22 @@
 <template>
-  <form class="interative_area research" novalidate>
+	<form class="interative_area research" novalidate>
 		<fieldset class="search_field focus" ref="searchField">
 			<input
-			ref="searchInput"
+				ref="searchInput"
 				type="text"
-				placeholder="Sandra Pérola" />
+				placeholder="Digite um critério para localizar no mapa" />
 
-			<button class="input_button search" ref="searchBtn" type="button"></button>
-
+			<button
+				class="input-button search"
+				ref="searchBtn"
+				type="button"></button>
 		</fieldset>
-	</form><div>
-    
-  </div>
+	</form>
+	<div></div>
 </template>
 
 <script>
-export default {
-name: 'ResearchField',
-}
+	export default {
+		name: "ResearchField",
+	};
 </script>

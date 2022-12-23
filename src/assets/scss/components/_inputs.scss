@@ -1,46 +1,42 @@
 /* Inputs*/
 
-.input_button {
+.input-button {
 	appearance: none;
 	width: 40px;
 	height: 40px;
 	border: none;
 	border-radius: $small-border;
 	box-shadow: $button-shadow;
+	margin: 0;
 
-	background-size: 75%;
+	background-size: 24px;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: $color-neutral-white-pure;
+
+	/*PF*/
+	&.button-pf {
+		@include mix-insert-image($person_icon);
+		&.actived {
+			background-image: url(./../images/Icons/person-white.svg);
+		}
+	}
+
+	/*PJ*/
+	.input-button.button-pj {
+		background-image: url(./../images/Icons/apartment.svg);
+		&.actived {
+			background-image: url(./../images/Icons/apartment-white.svg);
+		}
+	}
 }
 
-/*PF*/
-.input_button.button_pf {
-	@include mix_insert_img($person_icon);
-}
-
-.input_button.button_pf.actived {
-	background-image: url(./../images/Icons/person-white.svg);
-}
-
-.input_button.input_button.actived {
+.input-button.input-button.actived {
 	background-color: $color-primary-dark;
 }
 
-/*PJ*/
-.input_button.button_pj {
-	background-image: url(./../images/Icons/apartment.svg);
-}
-
-.input_button.button_pj.actived {
-	background-image: url(./../images/Icons/apartment-white.svg);
-}
-
-.input_button.input_button.actived {
-	background-color: $color-primary-dark;
-}
-
-.empty_button {
+.button {
+	position: relative;
 	width: 24px;
 	height: 24px;
 	border: none;
@@ -50,33 +46,32 @@
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;
+	background-size: 24px 24px;
 }
 
-.empty_button.help {
-	@include mix_insert_img($help_icon);
+.button.help {
+	@include mix-insert-image($help_icon);
 	&:hover {
 		background-image: url(./../images/Icons/#{$help_white_icon}.svg);
-		background-size: 18px !important;
 	}
-	margin-right: 25px;
 }
 
-.empty_button.apps {
-	@include mix_insert_img($apps_icon);
+.button.apps {
+	@include mix-insert-image($apps_icon);
 	&:hover {
-		@include mix_insert_img($apps_white_icon);
+		@include mix-insert-image($apps_white_icon);
 	}
 }
 
-.empty_button.consult {
-	@include mix_insert_img($search_icon);
+.button.consult {
+	@include mix-insert-image($search_icon);
 	background-repeat: no-repeat !important;
 	border-radius: 0 !important;
 	margin-right: 25px;
 }
 
-.empty_button.file {
-	@include mix_insert_img($topic_icon);
+.button.file {
+	@include mix-insert-image($topic_icon);
 	margin-right: 25px;
 }
 
@@ -86,28 +81,28 @@
 	width: 100%;
 }
 
-.empty_button.find_in_page {
-	@include mix_insert_img($find_in_page_icon);
+.button.find_in_page {
+	@include mix-insert-image($find_in_page_icon);
 	margin-right: 25px;
 }
 
-.empty_button.highlight {
-	@include mix_insert_img($highlight_icon);
+.button.highlight {
+	@include mix-insert-image($highlight_icon);
 	margin-right: 25px;
 }
 
-.empty_button.file_upload {
-	@include mix_insert_img($file_upload_icon);
+.button.file_upload {
+	@include mix-insert-image($file_upload_icon);
 	margin-right: 35px;
 }
 
-.empty_button.file_upload_2 {
-	@include mix_insert_img('file_upload_2');
+.button.file_upload_2 {
+	@include mix-insert-image("file_upload_2");
 	margin-right: 35px;
 }
 
-.empty_button.print {
-	@include mix_insert_img('print');
+.button.print {
+	@include mix-insert-image("print");
 	margin-right: 35px;
 }
 
@@ -127,20 +122,22 @@
 		appearance: none;
 		width: 35px;
 		height: 24px;
+		margin: 0;
+		margin-left: 4px;
 		cursor: pointer;
 
 		background: no-repeat center;
-		@include mix_insert_img($toggle_off_icon);
+		@include mix-insert-image($toggle_off_icon);
 		background-size: contain;
 
 		&:checked {
-			@include mix_insert_img($toggle_on_icon);
+			@include mix-insert-image($toggle_on_icon);
 		}
 	}
 }
 
-.empty_button.history {
-	@include mix_insert_img($history_icon);
+.button.history {
+	@include mix-insert-image($history_icon);
 	margin-left: auto;
 }
 
@@ -165,6 +162,10 @@
 		outline: none;
 
 		background: $color-neutral-white-medium;
+
+		&::placeholder {
+			color: $color-neutral-black-medium;
+		}
 	}
 
 	.search {

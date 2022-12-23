@@ -1,30 +1,30 @@
 <template>
-	<div id="header">
-		<div id="header_top_row">
+	<div class="header">
+		<div class="header-top-container">
 			<router-link to="/">
 				<img class="header_logo" src="./../../public/logo.svg" alt="upLink"
 			/></router-link>
-			<div id="header__buttons">
+			<div class="header-buttons-container">
 				<DropdownArea
 					btnClass="help"
 					btnTitle="Ajuda"
 					setTooltipSide="bottom"
-					:class="'to_right'">
+					:class="'_position--right'">
 					<DropItem>Tutorial (em breve)</DropItem>
 					<DropItem @click="$emit('showModal', 'fonts_modal')">Fontes</DropItem>
 					<DropItem>FAQ (em breve)</DropItem>
 				</DropdownArea>
 
 				<button
-					class="empty_button apps tooltip_caller"
+					class="button apps tooltip-caller"
 					@click="$emit('showModal', 'back_to_upminer_modal')">
-					<span class="tooltip_desc">Voltar ao upMiner</span>
+					<span class="tooltip-desc">Voltar ao upMiner</span>
 				</button>
 			</div>
 		</div>
 
-		<div id="header_bottom_row">
-			<div id="header__buttons">
+		<div class="header-bottom-container">
+			<div class="header-buttons-container">
 				<DropdownArea
 					btnClass="consult"
 					btnTitle="Consulta"
@@ -34,7 +34,7 @@
 					</DropItem>
 					<DropItem
 						:isBtnDisabled="!expandBtnOptions"
-						@click="$emit('showModal', 'add_modal')"
+						@click="$emit('showModal', 'add-modal')"
 						>Adicionar</DropItem
 					>
 				</DropdownArea>
@@ -44,22 +44,22 @@
 					btnTitle="Arquivo"
 					setTooltipSide="bottom">
 					<DropItem
-						@click="$emit('showModal', 'save_modal')"
+						@click="$emit('showModal', 'save-modal')"
 						:isBtnDisabled="!expandBtnOptions"
 						>Salvar</DropItem
 					>
 					<!-- the following event returns to the App component -->
-					<DropItem @click="$emit('showModal', 'open_modal')">Abrir</DropItem>
-					<DropItem @click="$emit('showModal', 'open_modal', true)"
+					<DropItem @click="$emit('showModal', 'open-modal')">Abrir</DropItem>
+					<DropItem @click="$emit('showModal', 'open-modal', true)"
 						>Excluir</DropItem
 					>
 				</DropdownArea>
 
 				<fieldset id="extra_options" v-show="expandBtnOptions">
 					<button
-						class="empty_button find_in_page tooltip_caller"
+						class="button find_in_page tooltip-caller"
 						@click="$emit('showModal', 'to_locate_modal')">
-						<span class="tooltip_desc tooltip_bottom">Localizar</span>
+						<span class="tooltip-desc _tooltip--bottom">Localizar</span>
 					</button>
 					<DropdownArea
 						btnClass="highlight"
@@ -79,13 +79,13 @@
 						<DropItem>PNG</DropItem>
 						<DropItem>PDF</DropItem>
 					</DropdownArea>
-					<div class="autosave-container tooltip_caller">
+					<div class="autosave-container tooltip-caller">
 						<label for="auto-sabe">Autosave</label>
 						<input
 							type="checkbox"
 							@click="toggleAutoSave()"
 							:checked="autoSave" />
-						<span class="tooltip_desc tooltip_bottom">{{
+						<span class="tooltip-desc _tooltip--bottom">{{
 							`${
 								autoSave == true
 									? "Salvamento automático a cada 3 min"
@@ -99,14 +99,14 @@
 						btnTitle="Exportar"
 						style="margin-left: auto"
 						setTooltipSide="bottom"
-						:class="'to_right'">
+						:class="'_position--right'">
 						<h2 class="p-2">Histórico</h2>
-						<div class="dropdown_information_container">
-							<span class="history_item">Versão Atual</span>
+						<div class="dropdown-information-container">
+							<span class="list-item">Versão Atual</span>
 							<span
 								v-for="(value, index) in history.slice(0, 9)"
 								:key="index"
-								class="history_item"
+								class="list-item"
 								>{{ history[index].day }}, {{ history[index].mounth }}
 								{{ history[index].time }}</span
 							>
@@ -177,19 +177,20 @@
 			// Set z-index up or down to header, on mouseenter event
 			let el = this.$el;
 			this.$el.addEventListener("mouseenter", () => {
-				el.classList.add("z_up");
+				el.classList.add("header_z-index--up");
 			});
 			this.$el.addEventListener("mouseleave", () => {
 				if (!this.$el.querySelector(".on_dropdown")) {
-					el.classList.remove("z_up");
-					console.log('pass')
-				}
-				else {
-				document.addEventListener('click', enableContentOverlay)
+					el.classList.remove("header_z-index--up");
+				} else {
+					document.addEventListener("click", enableContentOverlay);
 					function enableContentOverlay(evt) {
-						if(!document.querySelector('#header').contains(evt.target)){
-					el.classList.remove("z_up");
-							document.removeEventListener('click', enableContentOverlay)
+						if (
+							!document.querySelector(".header").contains(evt.target) &&
+							!document.querySelector("#modal").contains(evt.target)
+						) {
+							el.classList.remove("header_z-index--up");
+							document.removeEventListener("click", enableContentOverlay);
 						}
 					}
 				}

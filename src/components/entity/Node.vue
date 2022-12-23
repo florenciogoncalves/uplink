@@ -8,7 +8,7 @@
 			ref="otherTypes"
 			:class="entityType + '_person ' + entitySubTypes">
 			<div
-				v-if="entitySubTypes"
+				v-if="entitySubTypes && entityType == 'physical'"
 				class="entity_subtype"
 				v-html="
 					entitySubTypes == 'adm'
@@ -104,7 +104,11 @@
 				<div
 					class="submenu"
 					v-if="entityType == 'legal' || entityType == 'physical'">
-					<button class="_button" @click="this.$el.classList.add('hidden_entity')">Ocultar</button>
+					<button
+						class="_button"
+						@click="this.$el.classList.add('hidden_entity')">
+						Ocultar
+					</button>
 					<button
 						class="_button"
 						@click="this.showCPF = !this.showCPF"
@@ -173,18 +177,22 @@
 				else {
 					this.menuVisibility = !this.menuVisibility;
 					let menu = this;
-					function watchMenu() {
-						menu.menuVisibility = false;
-						if (!this.menuVisibility) {
-							try {
-								document.removeEventListener("click", watchMenu);
-							} catch (error) {}
-						}
-					}
+
 					if (this.menuVisibility) {
+						this.$el.classList.add("header_z-index--up");
 						setTimeout(() => {
 							document.addEventListener("click", watchMenu);
 						}, 5);
+					}
+
+					function watchMenu() {
+						menu.menuVisibility = false;
+						if (!menu.menuVisibility) {
+							try {
+								menu.$el.classList.remove("header_z-index--up");
+								document.removeEventListener("click", watchMenu);
+							} catch (error) {}
+						}
 					}
 				}
 			},

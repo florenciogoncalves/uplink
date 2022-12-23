@@ -4,12 +4,12 @@
 			<input
 				type="radio"
 				name="criteria"
-				class="input_button button_pf"
+				class="input-button button-pf"
 				ref="btnPf" />
 			<input
 				type="radio"
 				name="criteria"
-				class="input_button button_pj"
+				class="input-button button-pj"
 				ref="btnPj" />
 		</div>
 		<fieldset class="search_field" ref="searchField">
@@ -21,13 +21,13 @@
 
 			<button
 				v-if="btnRedirect"
-				class="input_button search"
+				class="input-button search"
 				ref="searchBtn"
 				type="button"></button>
 
 			<button
 				v-else
-				class="input_button search"
+				class="input-button search"
 				ref="searchBtn"
 				disabled
 				type="button"
@@ -80,10 +80,6 @@
 			input.addEventListener("focus", () => {
 				if (!fieldset.classList.contains("focus"))
 					fieldset.classList.toggle("focus");
-				if (pf.classList.contains("actived"))
-					input.setAttribute("placeholder", "Joanne Angelina Germano");
-				else if (pj.classList.contains("actived"))
-					input.setAttribute("placeholder", "Rei do Hamburguer");
 			});
 
 			input.addEventListener("blur", () => {
